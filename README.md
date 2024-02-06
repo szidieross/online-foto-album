@@ -1,1 +1,1 @@
-# online-foto-album
+Hozz létre egy online fotóalbumot, ahol a felhasználók feltölthetik és megoszthatják képeiket. Adj hozzá galéria funkciókat, címkézést és kommentelést.
