@@ -1,9 +1,6 @@
 <?php
 session_start();
-include_once('classes/Database.php');
 include_once('controllers/UserController.php');
-include_once('controllers/DoctorController.php');
-$database = Database::getInstance();
 
 if (isset($_SESSION["username"])) {
     header("Location: index.php");
@@ -30,13 +27,10 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
     } else {
 
         $userHandler = new UserController($database);
-        $doctorHandler = new DoctorController($database);
 
         $userExists = $userHandler->getUserData($username);
         if ($userExists) {
             echo "This username is already taken, please choose another one.";
-        } else if ($role == "doctor") {
-            $doctorHandler->createDoctor($firstName, $lastName, $username, $email, $password, $role, $specialty);
         } else {
             $userHandler->createUser($firstName, $lastName, $username, $email, $password, $role);
         }
@@ -69,13 +63,6 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
             Email: <input type="email" name="email" id="" required><br><br>
             Password: <input type="password" name="password" id="" required><br><br>
             Confirm Password: <input type="password" name="confirmPassword" id="" required><br><br>
-            Role:
-            <select name="role" id="role" required>
-                <option value="user">User</option>
-                <option value="doctor">Doctor</option>
-            </select><br><br>
-            <p>if you're a doctor:</p><br />
-            Specialty: <input type="text" name="specialty" id=""><br><br>
             <input type="submit" name="sign_up" class="button" value="Sign Up">
         </form>
         <p>Already have an account? <a href="login.php"> <button class="button">Sign in</button></a></p>
