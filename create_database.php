@@ -36,6 +36,7 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(100),
     role VARCHAR(20) NOT NULL
 )";
+
 if ($conn->query($sql) === TRUE) {
     echo "Table 'users' created successfully\n";
 } else {
@@ -51,6 +52,7 @@ $sql = "CREATE TABLE IF NOT EXISTS images (
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 )";
+
 if ($conn->query($sql) === TRUE) {
     echo "Table 'images' created successfully\n";
 } else {
@@ -66,6 +68,7 @@ $sql = "CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (image_id) REFERENCES images(id)
 )";
+
 if ($conn->query($sql) === TRUE) {
     echo "Table 'comments' created successfully\n";
 } else {
