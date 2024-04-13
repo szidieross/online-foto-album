@@ -13,8 +13,11 @@ include 'functions.php';
 <body>
     <h1>Photo Gallery</h1>
 
+    <h2>HOMEPAGE</h2>
+
+    
     <!-- Form for uploading images -->
-    <div class="upload-form">
+    <!-- <div class="upload-form">
         <h2>Upload Image</h2>
         <form action="upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name="image" required>
@@ -22,10 +25,10 @@ include 'functions.php';
             <textarea name="description" placeholder="Description"></textarea>
             <input type="submit" value="Upload Image">
         </form>
-    </div>
+    </div> -->
 
     <!-- Display images from the database -->
-    <div class="gallery">
+    <!-- <div class="gallery">
         <?php $images = getImages(); ?>
         <?php foreach ($images as $image): ?>
             <div class="image">
@@ -49,6 +52,6 @@ include 'functions.php';
                 <?php endforeach; ?>
             </div>
         <?php endforeach; ?>
-    </div>
+    </div> -->
 </body>
 </html>

@@ -13,31 +13,39 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
     $username = $_POST["username"];
     $email = $_POST["email"];
     $rawPassword = $_POST["password"];
-    $confirmedPassword = $_POST["confirm_password"];
-    $password = password_hash($rawPassword, PASSWORD_DEFAULT);
+    $confirmedPassword = $_POST["confirmPassword"];
     $role = $_POST["role"];
-    $specialty = $_POST["specialty"];
 
     if (empty($firstName) || empty($lastName) || empty($username) || empty($email) || empty($rawPassword) || empty($role)) {
         echo "All fields are required!";
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email format!";
+    } else if (strlen($rawPassword) < 6) {
+        echo "Password must be at least 6 characters long!";
     } else if ($rawPassword !== $confirmedPassword) {
         echo "Passwords do not match!";
     } else {
 
-        $userHandler = new UserController($database);
+        $password = password_hash($rawPassword, PASSWORD_DEFAULT);
+
+        $userHandler = new User($database);
 
         $userExists = $userHandler->getUserData($username);
         if ($userExists) {
             echo "This username is already taken, please choose another one.";
         } else {
-            $userHandler->createUser($firstName, $lastName, $username, $email, $password, $role);
+            $result = $userHandler->createUser($firstName, $lastName, $username, $email, $password, $role);
+            if ($result) {
+                echo "Registration successful!";
+            } else {
+                echo "Error occurred during registration!";
+            }
         }
     }
 }
-
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
