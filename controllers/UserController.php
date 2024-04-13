@@ -102,6 +102,7 @@ class UserController
 
 
         $_SESSION["username"] = $username;
+    
         $this->logoutUser();
         echo "User deleted.";
         $stmt->close();
@@ -155,11 +156,12 @@ class UserController
 
     public function logoutUser()
     {
+        echo "hello logout";
         session_start();
         unset($_SESSION["username"]);
         session_destroy();
 
-        header("Location: home.php");
+        // header("Location: ../home.php");
         exit;
     }
 
