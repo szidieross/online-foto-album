@@ -1,4 +1,5 @@
 <?php
+require_once '../controllers/Database.php';
 class UserController
 {
     private $db;
