@@ -12,26 +12,63 @@ class UserController
     public function getUserById($userId)
     {
         // Adatbázisból lekérdezés az azonosító alapján
-    }
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE iserId = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
 
-    // Új felhasználó létrehozása
-    public function createUser($userData)
-    {
-        // Adatbázisba új felhasználó létrehozása
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            return $user;
+        } else {
+            return null;
+        }
     }
 
     // Felhasználó adatainak frissítése
-    public function updateUser($userId, $newData)
+    public function updateUser($firstName, $lastName, $username, $email, $userId)
     {
         // Adatbázisban a felhasználó adatainak frissítése
+        $conn = $this->db->getConnection();
+
+        $sql = "UPDATE users SET first_name=?, last_name=?, username=?, email=? WHERE user_id=?";
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bind_param("ssssi", $firstName, $lastName, $username, $email, $userId);
+
+        if (!$stmt->execute()) {
+            die("Hiba az adat frissítése során: " . $stmt->error);
+        }
+
+        $_SESSION["username"] = $username;
+        echo "Changes saved.";
+        $stmt->close();
     }
 
     // Felhasználó törlése
-    public function deleteUser($userId)
+    public function deleteUser($userId, $username)
     {
         // Adatbázisból felhasználó törlése
+        $conn = $this->db->getConnection();
+
+        $sql = "DELETE users WHERE user_id=?";
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bind_param("i", $userId);
+
+        if (!$stmt->execute()) {
+            die("Hiba az adat frissítése során: " . $stmt->error);
+        }
+
+
+        $_SESSION["username"] = $username;
+        $this->logoutUser();
+        echo "User deleted.";
+        $stmt->close();
     }
-    public function create($firstName, $lastName, $username, $email, $password, $role)
+    public function createUser($firstName, $lastName, $username, $email, $password, $role)
     {
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, email, password, role) VALUES (?, ?, ?, ?, ?, ?)");
@@ -76,6 +113,16 @@ class UserController
         } else {
             echo "This username doesn't exist.";
         }
+    }
+
+    public function logoutUser()
+    {
+        session_start();
+        unset($_SESSION["username"]);
+        session_destroy();
+
+        header("Location: home.php");
+        exit;
     }
 
 }

@@ -42,9 +42,9 @@ if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Invalid email format!";
     } else if (isset($_SESSION['doctor'])) {
         $doctorHandler->updateDoctorData($firstName, $lastName, $id);
-        $userHandler->updateUserData($firstName, $lastName, $username, $email, $id);
+        $userHandler->updateUser($firstName, $lastName, $username, $email, $id);
     } else {
-        $userHandler->updateUserData($firstName, $lastName, $username, $email, $id);
+        $userHandler->updateUser($firstName, $lastName, $username, $email, $id);
     }
 }
 ?>
