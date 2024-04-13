@@ -13,10 +13,10 @@ $userController = new UserController($db);
 // Assume $userId contains the ID of the user whose images you want to fetch
 // $userId = 5;
 $username = $_SESSION["username"];
-$user=$userController->getUserByName($username);
+$user = $userController->getUserByName($username);
 $userId = $user['user_id'];
 
-echo "userId: ". $userId;
+echo "userId: " . $userId;
 // Fetch images associated with the user
 // $userImages = $imageController->getUserImages($userId);
 $images = $imageController->getUserImages($userId);
@@ -51,22 +51,24 @@ var_dump($images);
 <body>
     <h1>User Images</h1>
 
-  
+
 
     <div class="grid-container">
-    <?php if (!empty($images)): ?>
-        <?php foreach ($images as $image): ?>
-            <div class="grid-item">
-                <?php
-                $imagePath = "uploads/" . $image['file_name'];
-                ?>
-                <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No images found.</p>
-    <?php endif; ?>
-</div>
+        <?php if (!empty($images)): ?>
+            <?php foreach ($images as $image): ?>
+                <div class="grid-item">
+                    <a href="image/<?php echo $image['image_id']; ?>">
+                        <?php
+                        $imagePath = "uploads/" . $image['file_name'];
+                        ?>
+                        <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No images found.</p>
+        <?php endif; ?>
+    </div>
 
 
 </body>

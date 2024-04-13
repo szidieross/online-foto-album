@@ -99,23 +99,40 @@ class ImageController
 
 
     // Egy adott kép adatainak lekérdezése
+    // public function getImageById($imageId)
+    // {
+    //     // Adatbázisból lekérdezés az azonosító alapján
+    //     $conn = $this->db->getConnection();
+    //     $stmt = $conn->prepare("SELECT * FROM images WHERE id = ?");
+    //     $stmt->bind_param("i", $imageId);
+    //     $stmt->execute();
+
+    //     $result = $stmt->get_result();
+
+    //     if ($result->num_rows > 0) {
+    //         $image = $result->fetch_assoc();
+    //         return $image;
+    //     } else {
+    //         return null;
+    //     }
+    // }
     public function getImageById($imageId)
-    {
-        // Adatbázisból lekérdezés az azonosító alapján
-        $conn = $this->db->getConnection();
-        $stmt = $conn->prepare("SELECT * FROM images WHERE id = ?");
-        $stmt->bind_param("i", $imageId);
-        $stmt->execute();
+{
+    // Adatbázisból lekérdezés az azonosító alapján
+    $conn = $this->db->getConnection();
+    $stmt = $conn->prepare("SELECT * FROM images WHERE image_id = ?");
+    $stmt->bind_param("i", $imageId);
+    $stmt->execute();
 
-        $result = $stmt->get_result();
+    $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            $image = $result->fetch_assoc();
-            return $image;
-        } else {
-            return null;
-        }
+    if ($result->num_rows > 0) {
+        $image = $result->fetch_assoc();
+        return $image;
+    } else {
+        return null;
     }
+}
 
     // Új kép feltöltése
     public function uploadImage($userId, $fileName, $title, $tags)
