@@ -1,5 +1,8 @@
 <?php
 include_once './includes/header.php';
+require_once './controllers/Database.php';
+
+$db = Database::getInstance();
 ?>
 <!DOCTYPE html>
 <html lang="en">

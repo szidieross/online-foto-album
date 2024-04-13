@@ -2,18 +2,9 @@
 include './functions/functions.php';
 include_once './includes/header.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "online_foto_album";
-// Database connection
-$conn = new mysqli($servername, $username, $password);
-// $conn = new mysqli("localhost", "root", "", "pizza_order");
+require_once './controllers/Database.php';
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$db = Database::getInstance();
 
 
 ?>
@@ -32,10 +23,6 @@ if ($conn->connect_error) {
     <h1>Photo Gallery</h1>
 
     <h2>HOMEPAGE</h2>
-
-    <?php
-    include_once 'home.php';
-    ?>
 
 </body>
 

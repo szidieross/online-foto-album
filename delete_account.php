@@ -6,8 +6,8 @@ session_start();
 //     exit;
 // }
 
-require_once './controllers/Database.php';
 require_once './controllers/UserController.php';
+require_once './controllers/Database.php';
 
 $db = Database::getInstance();
 $userController = new UserController($db);
