@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once('controllers/UserController.php');
-require_once('controllers/Database.php');
+require_once ('controllers/UserController.php');
+require_once ('controllers/Database.php');
 
 // if (isset($_SESSION["username"])) {
 //     header("Location: index.php");
@@ -28,7 +28,7 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
         $password = password_hash($rawPassword, PASSWORD_DEFAULT);
 
-        $database = new Database();
+        $database = Database::getInstance();
         $userHandler = new UserController($database);
 
         $userExists = $userHandler->getUserByName($username);
