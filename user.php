@@ -19,7 +19,7 @@ $userId = $user['user_id'];
 echo "userId: ". $userId;
 // Fetch images associated with the user
 // $userImages = $imageController->getUserImages($userId);
-$images = $imageController->getUserImages(5);
+$images = $imageController->getUserImages($userId);
 var_dump($images);
 ?>
 
