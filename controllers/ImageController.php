@@ -1,5 +1,5 @@
 <?php
-require_once '../controllers/Database.php';
+require_once 'Database.php';
 class ImageController
 {
     private $db;

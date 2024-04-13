@@ -33,6 +33,10 @@ if ($conn->connect_error) {
 
     <h2>HOMEPAGE</h2>
 
+    <?php
+    include_once 'home.php';
+    ?>
+
 </body>
 
 </html>

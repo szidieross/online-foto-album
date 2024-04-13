@@ -1,10 +1,10 @@
 <?php
 session_start();
-include_once('classes/User.php');
+include_once('./controllers/UserController.php');
 
-if (isset($_SESSION["username"])) {
-    header("Location: index.php");
-}
+// if (isset($_SESSION["username"])) {
+//     header("Location: index.php");
+// }
 
 if (isset($_POST["login"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
     $username = $_POST["username"];

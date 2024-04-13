@@ -1,10 +1,10 @@
 <?php
 session_start();
-include_once('controllers/UserController.php');
+require_once('controllers/UserController.php');
 
-if (isset($_SESSION["username"])) {
-    header("Location: index.php");
-}
+// if (isset($_SESSION["username"])) {
+//     header("Location: index.php");
+// }
 
 if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
@@ -28,9 +28,9 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
         $password = password_hash($rawPassword, PASSWORD_DEFAULT);
 
-        $userHandler = new User($database);
+        $userHandler = new UserController($database);
 
-        $userExists = $userHandler->getUserData($username);
+        $userExists = $userHandler->getUserById($use);
         if ($userExists) {
             echo "This username is already taken, please choose another one.";
         } else {
