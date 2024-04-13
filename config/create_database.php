@@ -44,7 +44,7 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $sql = "CREATE TABLE IF NOT EXISTS images (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    image_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     filename VARCHAR(255) NOT NULL,
     title VARCHAR(255),
@@ -60,13 +60,13 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $sql = "CREATE TABLE IF NOT EXISTS comments (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    comment_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     image_id INT,
     comment VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (image_id) REFERENCES images(id)
+    FOREIGN KEY (image_id) REFERENCES images(image_id)
 )";
 
 if ($conn->query($sql) === TRUE) {

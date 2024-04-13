@@ -9,6 +9,18 @@ class ImageController {
     // Összes kép lekérdezése az adatbázisból
     public function getAllImages() {
         // Adatbázisból lekérdezés
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM images ORDER BY uploaded_at DESC");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $image = $result->fetch_assoc();
+            return $image;
+        } else {
+            return null;
+        }
     }
 
     // Egy adott kép adatainak lekérdezése
