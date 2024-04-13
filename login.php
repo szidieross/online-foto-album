@@ -1,6 +1,9 @@
 <?php
 session_start();
-include_once('./controllers/UserController.php');
+include_once ('./controllers/UserController.php');
+require_once ('controllers/Database.php');
+
+$database = Database::getInstance();
 
 // if (isset($_SESSION["username"])) {
 //     header("Location: index.php");
