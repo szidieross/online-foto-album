@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+
+include_once ('./includes/header.php');
 include_once ('./controllers/UserController.php');
 require_once ('controllers/Database.php');
 
@@ -52,3 +55,6 @@ if (isset($_POST["login"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
 </body>
 
 </html>
+<?php
+include_once './includes/footer.php';
+?>

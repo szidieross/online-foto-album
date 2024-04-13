@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once ('./includes/header.php');
 require_once ('controllers/UserController.php');
 require_once ('controllers/Database.php');
 
@@ -80,3 +81,6 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
 </body>
 
 </html>
+<?php
+include_once './includes/footer.php';
+?>

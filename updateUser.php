@@ -1,12 +1,12 @@
 <?php
 session_start();
-include_once("classes/Database.php");
-include_once("controllers/UserController.php");
-include_once("controllers/DoctorController.php");
+include_once ("includes/header.php");
+include_once ("classes/Database.php");
+include_once ("controllers/UserController.php");
+include_once ("controllers/DoctorController.php");
 
 $database = Database::getInstance();
 $userHandler = new UserController($database);
-$doctorHandler = new DoctorController($database);
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 
@@ -77,3 +77,6 @@ if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+<?php
+include_once './includes/footer.php';
+?>

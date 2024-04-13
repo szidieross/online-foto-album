@@ -1,3 +1,6 @@
+<?php
+include_once './includes/header.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,3 +15,6 @@
 </body>
 
 </html>
+<?php
+include_once './includes/footer.php';
+?>

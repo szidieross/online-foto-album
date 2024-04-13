@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once './includes/header.php';
 require_once './controllers/Database.php';
 require_once './controllers/UserController.php';
 
@@ -62,3 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 </body>
 
 </html>
+
+<?php
+include_once './includes/footer.php';
+?>

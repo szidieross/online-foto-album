@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h1>Footer</h1>
+    <h1>Photo Album</h1>
 </body>
 
 </html>
