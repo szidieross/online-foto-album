@@ -46,6 +46,25 @@ class UserController
         }
     }
 
+    // Egy adott felhasználó adatainak lekérdezése
+    public function getUserByName($username)
+    {
+        // Adatbázisból lekérdezés az azonosító alapján
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            return $user;
+        } else {
+            return null;
+        }
+    }
+
     // Felhasználó adatainak frissítése
     public function updateUser($firstName, $lastName, $username, $email, $userId)
     {
@@ -87,11 +106,11 @@ class UserController
         echo "User deleted.";
         $stmt->close();
     }
-    public function createUser($firstName, $lastName, $username, $email, $password, $role)
+    public function createUser($firstName, $lastName, $username, $email, $password)
     {
         $conn = $this->db->getConnection();
-        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, email, password, role) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $firstName, $lastName, $username, $email, $password, $role);
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, email, password) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $firstName, $lastName, $username, $email, $password);
 
         if ($stmt->execute()) {
             $userId = $conn->insert_id;

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('controllers/UserController.php');
+require_once('controllers/Database.php');
 
 // if (isset($_SESSION["username"])) {
 //     header("Location: index.php");
@@ -14,9 +15,8 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
     $email = $_POST["email"];
     $rawPassword = $_POST["password"];
     $confirmedPassword = $_POST["confirmPassword"];
-    $role = $_POST["role"];
 
-    if (empty($firstName) || empty($lastName) || empty($username) || empty($email) || empty($rawPassword) || empty($role)) {
+    if (empty($firstName) || empty($lastName) || empty($username) || empty($email) || empty($rawPassword)) {
         echo "All fields are required!";
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email format!";
@@ -28,13 +28,14 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
         $password = password_hash($rawPassword, PASSWORD_DEFAULT);
 
+        $database = new Database();
         $userHandler = new UserController($database);
 
-        $userExists = $userHandler->getUserById($use);
+        $userExists = $userHandler->getUserByName($username);
         if ($userExists) {
             echo "This username is already taken, please choose another one.";
         } else {
-            $result = $userHandler->createUser($firstName, $lastName, $username, $email, $password, $role);
+            $result = $userHandler->createUser($firstName, $lastName, $username, $email, $password);
             if ($result) {
                 echo "Registration successful!";
             } else {
