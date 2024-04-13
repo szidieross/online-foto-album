@@ -8,6 +8,24 @@ class UserController
         $this->db = $db;
     }
 
+    // Az összes felhasználó adatainak lekérdezése
+    public function getUsers()
+    {
+        // Adatbázisból lekérdezés az azonosító alapján
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM users");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            return $user;
+        } else {
+            return null;
+        }
+    }
+
     // Egy adott felhasználó adatainak lekérdezése
     public function getUserById($userId)
     {

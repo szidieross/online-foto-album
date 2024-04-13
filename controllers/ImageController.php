@@ -84,15 +84,40 @@ class ImageController
     }
 
     // Kép adatainak frissítése
-    public function updateImage($imageId, $newData)
+    public function updateImage($imageId, $title, $tags)
     {
         // Adatbázisban a kép adatainak frissítése
+        $conn = $this->db->getConnection();
+
+        $sql = "UPDATE images SET title=?, tags=? WHERE image_id=?";
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bind_param("ssssi", $title, $tags);
+
+        if (!$stmt->execute()) {
+            die("Hiba az adat frissítése során: " . $stmt->error);
+        }
+        echo "Changes saved.";
+        $stmt->close();
     }
 
     // Kép törlése
     public function deleteImage($imageId)
     {
         // Adatbázisból kép törlése
+        $conn = $this->db->getConnection();
+
+        $sql = "DELETE images WHERE image_id=?";
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bind_param("i", $imageId);
+
+        if (!$stmt->execute()) {
+            die("Hiba az adat frissítése során: " . $stmt->error);
+        }
+
+        echo "Image deleted.";
+        $stmt->close();
     }
 }
 ?>
