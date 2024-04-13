@@ -86,12 +86,12 @@ class UserController
     }
 
     // Felhasználó törlése
-    public function deleteUser($userId, $username)
+    public function deleteUser($userId)
     {
         // Adatbázisból felhasználó törlése
         $conn = $this->db->getConnection();
 
-        $sql = "DELETE users WHERE user_id=?";
+        $sql = "DELETE FROM users WHERE user_id=?";
         $stmt = $conn->prepare($sql);
 
         $stmt->bind_param("i", $userId);
@@ -100,12 +100,12 @@ class UserController
             die("Hiba az adat frissítése során: " . $stmt->error);
         }
 
-
-        $_SESSION["username"] = $username;
-    
-        $this->logoutUser();
         echo "User deleted.";
         $stmt->close();
+        
+        unset($_SESSION["username"]);
+        session_destroy();
+        // $this->logoutUser();
     }
     public function createUser($firstName, $lastName, $username, $email, $password)
     {
@@ -156,11 +156,9 @@ class UserController
 
     public function logoutUser()
     {
-        echo "hello logout";
         session_start();
         unset($_SESSION["username"]);
         session_destroy();
-
         // header("Location: ../home.php");
         exit;
     }

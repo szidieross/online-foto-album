@@ -42,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     <h2>Your Profile</h2>
     <form method="POST" action="">
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" value="<?php echo $user['first_name']; ?>" required><br><br>
+        <input type="text" id="first_name" name="first_name" value="<?php echo $user['first_name']; ?>"
+            required><br><br>
 
         <label for="last_name">Last Name:</label>
         <input type="text" id="last_name" name="last_name" value="<?php echo $user['last_name']; ?>" required><br><br>
@@ -53,8 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         <input type="submit" name="submit" value="Update Profile">
     </form>
     <form method="POST" action="delete_account.php">
+        <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
         <input type="submit" name="submit" value="Delete Account">
     </form>
+
     <a href="logout.php">Logout</a>
 </body>
 
