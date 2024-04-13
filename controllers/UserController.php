@@ -1,13 +1,36 @@
 <?php
-class User
+class UserController
 {
-    private Database $db;
+    private $db;
 
     public function __construct($db)
     {
         $this->db = $db;
     }
 
+    // Egy adott felhasználó adatainak lekérdezése
+    public function getUserById($userId)
+    {
+        // Adatbázisból lekérdezés az azonosító alapján
+    }
+
+    // Új felhasználó létrehozása
+    public function createUser($userData)
+    {
+        // Adatbázisba új felhasználó létrehozása
+    }
+
+    // Felhasználó adatainak frissítése
+    public function updateUser($userId, $newData)
+    {
+        // Adatbázisban a felhasználó adatainak frissítése
+    }
+
+    // Felhasználó törlése
+    public function deleteUser($userId)
+    {
+        // Adatbázisból felhasználó törlése
+    }
     public function create($firstName, $lastName, $username, $email, $password, $role)
     {
         $conn = $this->db->getConnection();
