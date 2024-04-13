@@ -46,7 +46,7 @@ if ($conn->query($sql) === TRUE) {
 $sql = "CREATE TABLE IF NOT EXISTS images (
     image_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
-    filename VARCHAR(255) NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
     title VARCHAR(255),
     tags VARCHAR(255),
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
