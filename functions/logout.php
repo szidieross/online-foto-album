@@ -1,4 +1,6 @@
 <?php
 session_start();
 unset($_SESSION["username"]);
-header("Location: home.php");
+session_destroy();
+header("Location: index.php");
+exit;
