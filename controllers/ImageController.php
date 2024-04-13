@@ -10,6 +10,23 @@ class ImageController
     }
 
     // Összes kép lekérdezése az adatbázisból
+    // public function getAllImages()
+    // {
+    //     // Adatbázisból lekérdezés
+    //     $conn = $this->db->getConnection();
+    //     $stmt = $conn->prepare("SELECT * FROM images ORDER BY uploaded_at DESC");
+    //     $stmt->execute();
+
+    //     $result = $stmt->get_result();
+
+    //     if ($result->num_rows > 0) {
+    //         $image = $result->fetch_assoc();
+    //         return $image;
+    //     } else {
+    //         return null;
+    //     }
+    // }
+    // Change the return type of the getAllImages() method to return an array of images
     public function getAllImages()
     {
         // Adatbázisból lekérdezés
@@ -19,13 +36,18 @@ class ImageController
 
         $result = $stmt->get_result();
 
+        $images = []; // Initialize an empty array to store images
+
         if ($result->num_rows > 0) {
-            $image = $result->fetch_assoc();
-            return $image;
-        } else {
-            return null;
+            // Fetch all rows and store them in the $images array
+            while ($row = $result->fetch_assoc()) {
+                $images[] = $row;
+            }
         }
+
+        return $images; // Return the array of images
     }
+
 
     // Egy adott kép adatainak lekérdezése
     public function getImageById($imageId)
