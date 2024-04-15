@@ -82,12 +82,9 @@ class ImageController
     
     $result = $stmt->get_result();
     
-    $images = []; // Initialize an empty array to store images
-    
-    var_dump($result->num_rows); // Debugging statement
+    $images = [];
     
     if ($result->num_rows > 0) {
-        // Fetch all rows and store them in the $images array
         while ($row = $result->fetch_assoc()) {
             $images[] = $row;
         }
@@ -95,8 +92,6 @@ class ImageController
     
     return $images;
 }
-
-
 
     // Egy adott kép adatainak lekérdezése
     // public function getImageById($imageId)

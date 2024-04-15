@@ -117,19 +117,15 @@ footer {
 }
 
 /* IMAGE */
-.image-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+
+.image-holder {
+    width: 100%;
 }
 
-.image-item {
-    margin: 10px;
-}
-
-.image-item img {
-    width: 200px;
-    height: auto;
+.image {
+    width: 100%;
+    max-height: 100vh;
+    object-fit:contain ;
 }
 
 /* FORMS */

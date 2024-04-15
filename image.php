@@ -5,23 +5,17 @@ require_once './controllers/Database.php';
 require_once './controllers/ImageController.php';
 require_once './controllers/UserController.php';
 
-// Initialize Database and ImageController
 $db = Database::getInstance();
 $imageController = new ImageController($db);
 $userController = new UserController($db);
 
-// Fetch the image data
-$image = $imageController->getImageById(21);
-
-var_dump($image);
-
-// If the image data is found, display it
-// if (!empty($image)) {
-//     $imagePath = "uploads/" . $image['file_name'];
-//     echo "<img src='$imagePath' alt='Uploaded Image'>";
-// } else {
-//     echo "No image found.";
-// }
+if (isset($_GET['image_id'])) {
+    $imageId = $_GET['image_id'];
+} else {
+    header("Location: notfound.php");
+    exit;
+}
+$image = $imageController->getImageById($imageId);
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +32,12 @@ var_dump($image);
     <h1>Image</h1>
 
     <?php if (!empty($image)): ?>
-        <?php
-        $imagePath = "uploads/" . $image['file_name'];
-        ?>
-        <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
+        <div class="image-holder">
+            <?php
+            $imagePath = "uploads/" . $image['file_name'];
+            ?>
+            <img src="<?php echo $imagePath; ?>" alt="Uploaded Image" class="image">
+        </div>
     <?php else: ?>
         <p>No image found.</p>
     <?php endif; ?>

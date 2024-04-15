@@ -5,22 +5,17 @@ require_once './controllers/Database.php';
 require_once './controllers/ImageController.php';
 require_once './controllers/UserController.php';
 
-// Initialize Database and ImageController
 $db = Database::getInstance();
 $imageController = new ImageController($db);
 $userController = new UserController($db);
 
-// Assume $userId contains the ID of the user whose images you want to fetch
-// $userId = 5;
-$username = $_SESSION["username"];
-$user = $userController->getUserByName($username);
-$userId = $user['user_id'];
-
-echo "userId: " . $userId;
-// Fetch images associated with the user
-// $userImages = $imageController->getUserImages($userId);
+if(isset($_GET['user_id'])) {
+    $userId = $_GET['user_id'];
+} else {
+    header("Location: notfound.php");
+    exit;
+}
 $images = $imageController->getUserImages($userId);
-var_dump($images);
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +43,7 @@ var_dump($images);
         <?php if (!empty($images)): ?>
             <?php foreach ($images as $image): ?>
                 <div class="flex-item">
-                    <a href="image.php?/<?php echo $image['image_id']; ?>">
+                    <a href="image.php?image_id=<?php echo $image['image_id']; ?>">
                         <?php
                         $imagePath = "uploads/" . $image['file_name'];
                         ?>

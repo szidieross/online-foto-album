@@ -15,9 +15,6 @@ $userController = new UserController($db);
 $username = $_SESSION["username"];
 $user = $userController->getUserByName($username);
 $userId = $user['user_id'];
-echo "userId: " . $userId;
-
-// var_dump($user);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     // Call deleteUser function

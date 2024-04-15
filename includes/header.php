@@ -13,7 +13,6 @@
         <nav class="header-menu">
             <a href="index.php" class="menu-item">Home</a>
             <a href="upload.php" class="menu-item">Upload</a>
-            <a href="user.php" class="menu-item">User</a>
             <a href="login.php" class="menu-item">Login</a>
             <a href="signup.php" class="menu-item">Signup</a>
             <a href="profile.php" class="menu-item">Profile</a>
