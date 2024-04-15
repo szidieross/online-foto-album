@@ -21,8 +21,13 @@ $images = $imageController->getAllImages();
 </head>
 
 <body>
-    <h1>Photo Gallery</h1>
-    <h2>HOMEPAGE</h2>
+    <h2>Filter by category</h2>
+    <select id="select-dropdown">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+        <option value="option4">Option 4</option>
+    </select>
 
     <div class="flex-box">
         <?php if (!empty($images)): ?>
@@ -38,15 +43,6 @@ $images = $imageController->getAllImages();
             <p>No images found.</p>
         <?php endif; ?>
     </div>
-
-    <!-- <div class="grid-container">
-        <div class="grid-item">1</div>
-        <div class="grid-item">2</div>
-        <div class="grid-item">3</div>
-        <div class="grid-item">4</div>
-        <div class="grid-item">5</div>
-        <div class="grid-item">6</div>
-    </div> -->
 
 </body>
 

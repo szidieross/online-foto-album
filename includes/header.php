@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styles.css">
 </head>
 
 <body>
     <header>
-        <h1>Online Photo Album</h1>
-        <nav>
-            <a href="index.php">Home</a>
-            <a href="profile.php">Profile</a>
-            <a href="login.php">Login</a>
-            <a href="signup.php">Signup</a>
-            <a href="logout.php">Logout</a>
+        <h1 class="header-title">Online Photo Album</h1>
+        <nav class="header-menu">
+            <a href="index.php" class="menu-item">Home</a>
+            <a href="profile.php" class="menu-item">Profile</a>
+            <a href="login.php" class="menu-item">Login</a>
+            <a href="signup.php" class="menu-item">Signup</a>
+            <a href="logout.php" class="menu-item">Logout</a>
         </nav>
     </header>
 </body>

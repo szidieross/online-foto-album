@@ -31,40 +31,30 @@ var_dump($images);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Images</title>
     <link rel="stylesheet" href="./styles/styles.css">
-    <style>
-        /* .image-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .image-item {
-            margin: 10px;
-        }
-
-        .image-item img {
-            width: 200px;
-            height: auto;
-        } */
-    </style>
 </head>
 
 <body>
     <h1>User Images</h1>
 
+    <h2>Filter user's images by category</h2>
+    <select id="select-dropdown">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+        <option value="option4">Option 4</option>
+    </select>
 
-
-    <div class="grid-container">
+    <div class="flex-box">
         <?php if (!empty($images)): ?>
             <?php foreach ($images as $image): ?>
-                <div class="grid-item">
+                <div class="flex-item">
                     <form method="POST" action="image.php">
                         <input type="hidden" name="image_id" value="<?php echo $image['image_id']; ?>">
                         <!-- <a href="image/<?php echo $image['image_id']; ?>"> -->
                         <?php
                         $imagePath = "uploads/" . $image['file_name'];
                         ?>
-                        <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
+                        <img src="<?php echo $imagePath; ?>" alt="Uploaded Image" class="flex-image">
                         <!-- </a> -->
                         <input type="submit" name="submit" value="Cim">
                     </form>
