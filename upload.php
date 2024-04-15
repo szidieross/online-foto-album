@@ -83,9 +83,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
 <body>
     <h2>Upload Image</h2>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data" class="form">
         <input type="file" name="image" accept="image/*" required>
-        <input type="submit" value="Upload Image" name="submit">
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"><br>
+
+        <label for="tags">Tags:</label>
+        <input type="text" id="tags" name="tags"><br>
+
+        <input type="submit" value="Upload Image" name="submit" class="form-button">
+
     </form>
 </body>
 

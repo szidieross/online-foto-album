@@ -65,13 +65,13 @@ if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="./logout.php"><button class="button">Logout</button></a>
             <a href="index.php"><button class="button">Home</button></a>
         </div>
-        <form method="POST" action="">
+        <form method="POST" action=""  class="form">
             <input type="hidden" name="id" value="<?php echo $userData["user_id"]; ?>">
             First Name: <input type="text" name="first_name" value="<?php echo $firstName; ?>" required><br><br>
             Last Name: <input type="text" name="last_name" value="<?php echo $lastName; ?>" required><br><br>
             Username: <input type="text" name="username" value="<?php echo $username; ?>" required><br><br>
             Email: <input type="email" name="email" value="<?php echo $email; ?>" required><br><br>
-            <input type="submit" name="update" class="button" value="Save changes">
+            <input type="submit" name="update" class="button" value="Save changes" class="form-button">
         </form>
     </div>
 </body>

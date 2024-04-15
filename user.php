@@ -48,16 +48,12 @@ var_dump($images);
         <?php if (!empty($images)): ?>
             <?php foreach ($images as $image): ?>
                 <div class="flex-item">
-                    <form method="POST" action="image.php">
-                        <input type="hidden" name="image_id" value="<?php echo $image['image_id']; ?>">
-                        <!-- <a href="image/<?php echo $image['image_id']; ?>"> -->
+                    <a href="image.php?/<?php echo $image['image_id']; ?>">
                         <?php
                         $imagePath = "uploads/" . $image['file_name'];
                         ?>
                         <img src="<?php echo $imagePath; ?>" alt="Uploaded Image" class="flex-image">
-                        <!-- </a> -->
-                        <input type="submit" name="submit" value="Cim">
-                    </form>
+                    </a>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>

@@ -67,14 +67,14 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
             <button class="button">Sign in</button></a>
         <h2>Regisztralj</h2>
 
-        <form method="POST" action="">
+        <form method="POST" action=""  class="form">
             First Name: <input type="text" name="first_name" id="" required><br><br>
             Last Name: <input type="text" name="last_name" id="" required><br><br>
             Username: <input type="text" name="username" id="" required><br><br>
             Email: <input type="email" name="email" id="" required><br><br>
             Password: <input type="password" name="password" id="" required><br><br>
             Confirm Password: <input type="password" name="confirmPassword" id="" required><br><br>
-            <input type="submit" name="sign_up" class="button" value="Sign Up">
+            <input type="submit" name="sign_up" class="button" value="Sign Up" class="form-button">
         </form>
         <p>Already have an account? <a href="login.php"> <button class="button">Sign in</button></a></p>
     </div>

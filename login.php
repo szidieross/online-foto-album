@@ -35,18 +35,18 @@ if (isset($_POST["login"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
         <div class="main-container">
             <div class="form" id="user-form">
                 <h2>Login as a User</h2>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="username" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="login" class="button" value="Login">
-                    </div>
+                <form action="" method="post" class="form">
+                    <!-- <div class="form-group"> -->
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control">
+                    <!-- </div> -->
+                    <!-- <div class="form-group"> -->
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control">
+                    <!-- </div> -->
+                    <!-- <div class="form-group"> -->
+                    <input type="submit" name="login" class="button" value="Login" class="form-button">
+                    <!-- </div> -->
                 </form>
                 <p>Don't have an account? <a href="signup.php"> <button class="button">Sign up</button></a></p>
             </div>
