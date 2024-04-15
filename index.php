@@ -23,7 +23,7 @@ $images = $imageController->getAllImages();
 <body>
     <h2>Filter by category</h2>
     <select id="select-dropdown" class="select-dropdown">
-        <option value="option1" class="select-option">Option 1</option>
+        <option value="option1" class="select-option">All</option>
         <option value="option2" class="select-option">Option 2</option>
         <option value="option3" class="select-option">Option 3</option>
         <option value="option4" class="select-option">Option 4</option>
