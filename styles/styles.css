@@ -23,7 +23,9 @@ header {
     padding-bottom: 20px;
 }
 
-.header-title {}
+.header-title {
+    color: var(--primary-text-color);
+}
 
 .header-menu {
     width: 100%;
@@ -61,10 +63,11 @@ footer {
     justify-content: center;
     gap: 10px;
     row-gap: 10px;
+    max-width: 100%;
 }
 
 .flex-item {
-    max-width: calc((100% / 3) - 10px);
+    width: calc((100% / 3) - 10px);
     height: 500px;
     overflow: hidden;
 }
@@ -73,6 +76,18 @@ footer {
     width: 100%;
     min-height: 100%;
     object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+    .flex-item {
+        width: calc((100% / 2) - 10px);
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .flex-item {
+        width: 100%;
+    }
 }
 
 /* IMAGE */
