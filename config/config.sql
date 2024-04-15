@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS images (
     user_id INT,
     file_name VARCHAR(255) NOT NULL,
     title VARCHAR(255),
-    tags VARCHAR(255),
+    tags TEXT,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

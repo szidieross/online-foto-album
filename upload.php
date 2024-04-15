@@ -53,9 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             $userId = $row["user_id"];
 
             // Insert image information into the database
-            $sql = "INSERT INTO images (file_name, user_id) VALUES (?, ?)";
+            $title = $_POST['title'] ?? '';
+            $tags = isset($_POST['tags']) ? explode(',', $_POST['tags']) : array();
+            $sql = "INSERT INTO images (file_name, user_id, title, tags) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("si", $fileName, $userId);
+            $stmt->bind_param("siss", $fileName, $userId, $title, $serializedTags);
             if ($stmt->execute()) {
                 echo "Image information saved to database.";
             } else {

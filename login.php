@@ -48,7 +48,7 @@ if (isset($_POST["login"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
                     <input type="submit" name="login" class="button" value="Login" class="form-button">
                     <!-- </div> -->
                 </form>
-                <p>Don't have an account? <a href="signup.php"> <button class="button">Sign up</button></a></p>
+                <p>Don't have an account? <a href="signup.php"> <button  class="form-button">Sign up</button></a></p>
             </div>
         </div>
     </div>

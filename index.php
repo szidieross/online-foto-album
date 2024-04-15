@@ -33,10 +33,12 @@ $images = $imageController->getAllImages();
         <?php if (!empty($images)): ?>
             <?php foreach ($images as $image): ?>
                 <div class="flex-item">
-                    <?php
-                    $imagePath = "uploads/" . $image['file_name'];
-                    ?>
-                    <img src="<?php echo $imagePath; ?>" alt="Uploaded Image" class="flex-image">
+                    <a href="user.php?/<?php echo $image['user_id']; ?>">
+                        <?php
+                        $imagePath = "uploads/" . $image['file_name'];
+                        ?>
+                        <img src="<?php echo $imagePath; ?>" alt="Uploaded Image" class="flex-image">
+                    </a>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
