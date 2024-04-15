@@ -1,0 +1,27 @@
+.flex-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-item {
+    max-width: 30%;
+}
+
+.flex-image {
+    max-width: 100%;
+}
+/* /idk/ */
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-item {
+    margin: 10px;
+}
+
+.image-item img {
+    width: 200px;
+    height: auto;
+}

@@ -30,8 +30,9 @@ var_dump($images);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Images</title>
+    <link rel="stylesheet" href="./styles/styles.css">
     <style>
-        .image-container {
+        /* .image-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -44,7 +45,7 @@ var_dump($images);
         .image-item img {
             width: 200px;
             height: auto;
-        }
+        } */
     </style>
 </head>
 
@@ -57,12 +58,16 @@ var_dump($images);
         <?php if (!empty($images)): ?>
             <?php foreach ($images as $image): ?>
                 <div class="grid-item">
-                    <a href="image/<?php echo $image['image_id']; ?>">
+                    <form method="POST" action="image.php">
+                        <input type="hidden" name="image_id" value="<?php echo $image['image_id']; ?>">
+                        <!-- <a href="image/<?php echo $image['image_id']; ?>"> -->
                         <?php
                         $imagePath = "uploads/" . $image['file_name'];
                         ?>
                         <img src="<?php echo $imagePath; ?>" alt="Uploaded Image">
-                    </a>
+                        <!-- </a> -->
+                        <input type="submit" name="submit" value="Cim">
+                    </form>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
