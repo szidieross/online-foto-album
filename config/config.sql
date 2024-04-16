@@ -1,4 +1,5 @@
 DROP DATABASE IF EXISTS online_foto_album;
+
 CREATE DATABASE IF NOT EXISTS online_foto_album;
 
 USE online_foto_album;
@@ -18,9 +19,21 @@ CREATE TABLE IF NOT EXISTS images (
     user_id INT,
     file_name VARCHAR(255) NOT NULL,
     title VARCHAR(255),
-    tags TEXT,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE IF NOT EXISTS tags (
+    tag_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS image_tags (
+    image_id INT,
+    tag_id INT,
+    PRIMARY KEY (image_id, tag_id),
+    FOREIGN KEY (image_id) REFERENCES images(image_id),
+    FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 );
 
 CREATE TABLE IF NOT EXISTS comments (

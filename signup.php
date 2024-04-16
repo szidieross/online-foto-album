@@ -6,9 +6,9 @@ require_once ('controllers/Database.php');
 
 $database = Database::getInstance();
 
-// if (isset($_SESSION["username"])) {
-//     header("Location: index.php");
-// }
+if (isset($_SESSION["username"])) {
+    header("Location: index.php");
+}
 
 if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
 

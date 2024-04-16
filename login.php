@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+// session_start();
 
 include_once ('./includes/header.php');
 include_once ('./controllers/UserController.php');
@@ -8,9 +7,9 @@ require_once ('controllers/Database.php');
 
 $database = Database::getInstance();
 
-// if (isset($_SESSION["username"])) {
-//     header("Location: index.php");
-// }
+if (isset($_SESSION["username"])) {
+    header("Location: index.php");
+}
 
 if (isset($_POST["login"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
     $username = $_POST["username"];
