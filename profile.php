@@ -14,14 +14,16 @@ $userController = new UserController($db);
 
 $username = $_SESSION["username"];
 $user = $userController->getUserByName($username);
+$userId = $user["user_id"];
+echo $userId;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    $firstName = $_POST['first_name'];
-    $lastName = $_POST['last_name'];
-    $email = $_POST['email'];
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+//     $firstName = $_POST['first_name'];
+//     $lastName = $_POST['last_name'];
+//     $email = $_POST['email'];
 
-    $userController->updateUser($firstName, $lastName, $username, $email, $user['user_id']);
-}
+//     $userController->updateUser($firstName, $lastName, $username, $email, $user['user_id']);
+// }
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 <body>
     <div class="container">
         <h1>Welcome, <?php echo $user['first_name']; ?>!</h1>
-        <h2>Your Profile</h2>
-        <form method="POST" action="" class="form">
+        <!-- <form method="POST" action="" class="form">
             <label for="first_name">First Name:</label>
             <input type="text" id="first_name" class="form-text-input" name="first_name"
                 value="<?php echo $user['first_name']; ?>" required><br><br>
@@ -56,9 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         <form method="POST" action="delete_account.php" class="form">
             <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
             <input type="submit" name="submit" value="Delete Account" class="submit">
-        </form>
+        </form> -->
 
-        <a href="logout.php" class="submit">Logout</a>
+        <a href="updateUser.php" class="submit">Profile Settings</a>
+        <a href="user.php?user_id=<?php echo $userId; ?>" class="submit">See your Gallery</a>
     </div>
 </body>
 
