@@ -9,6 +9,8 @@ body {
     margin: 0;
     box-sizing: border-box;
     background-color: var(--background-color);
+    font-family: Arial, sans-serif;
+    color: var(--secondary-text-color);
 }
 
 a {
@@ -172,6 +174,7 @@ footer {
     border-radius: 4px;
     color: var(--primary-text-color);
     font-weight: 500;
+    cursor: pointer;
 }
 
 .comments-section {
@@ -211,4 +214,57 @@ footer {
     width: fit-content;
     border: none;
     border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-text-input {
+    height: 30px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+.form-text-input button {
+    height: 30px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+.form-text-input:focus {
+    outline: none;
+}
+
+.custom-file-input {
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-file-input input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-file-input-label {
+    display: block;
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.custom-file-input-label:hover {
+    background-color: var(--primary-color);
+}
+
+.custom-file-input-label:active {
+    background-color: var(--primary-color);
 }

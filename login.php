@@ -37,11 +37,11 @@ if (isset($_POST["login"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
                 <form action="" method="post" class="form">
                     <!-- <div class="form-group"> -->
                     <label>Username</label>
-                    <input type="text" name="username" class="form-control">
+                    <input type="text" name="username" class="form-text-input">
                     <!-- </div> -->
                     <!-- <div class="form-group"> -->
                     <label>Password</label>
-                    <input type="password" name="password" class="form-control">
+                    <input type="password" name="password" class="form-text-input">
                     <!-- </div> -->
                     <!-- <div class="form-group"> -->
                     <input type="submit" name="login" class="submit" value="Login" class="form-button">

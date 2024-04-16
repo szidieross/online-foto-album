@@ -69,12 +69,16 @@ if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="./logout.php"><button class="submit">Logout</button></a>
             <a href="index.php"><button class="button">Home</button></a>
         </div>
-        <form method="POST" action=""  class="form">
-            <input type="hidden" name="id" value="<?php echo $userData["user_id"]; ?>">
-            First Name: <input type="text" name="first_name" value="<?php echo $firstName; ?>" required><br><br>
-            Last Name: <input type="text" name="last_name" value="<?php echo $lastName; ?>" required><br><br>
-            Username: <input type="text" name="username" value="<?php echo $username; ?>" required><br><br>
-            Email: <input type="email" name="email" value="<?php echo $email; ?>" required><br><br>
+        <form method="POST" action="" class="form">
+            <input type="hidden" name="id" class="form-text-input" value="<?php echo $userData["user_id"]; ?>">
+            First Name: <input type="text" class="form-text-input" name="first_name" value="<?php echo $firstName; ?>"
+                required><br><br>
+            Last Name: <input type="text" class="form-text-input" name="last_name" value="<?php echo $lastName; ?>"
+                required><br><br>
+            Username: <input type="text" class="form-text-input" name="username" value="<?php echo $username; ?>"
+                required><br><br>
+            Email: <input type="email" class="form-text-input" name="email" value="<?php echo $email; ?>"
+                required><br><br>
             <input type="submit" name="update" class="submit" value="Save changes" class="form-button">
         </form>
     </div>
