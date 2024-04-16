@@ -129,6 +129,29 @@ class ImageController
         }
     }
 
+    public function getImagesByTag($tagId)
+    {
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM images 
+                            INNER JOIN image_tags ON images.image_id = image_tags.image_id
+                            WHERE image_tags.tag_id = ?");
+        $stmt->bind_param("i", $tagId);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $images = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $images[] = $row;
+            }
+        }
+
+        return $images;
+    }
+
+
     // Új kép feltöltése
     public function uploadImage($userId, $fileName, $title)
     {

@@ -2,11 +2,22 @@
 include_once './includes/header.php';
 require_once './controllers/Database.php';
 require_once './controllers/ImageController.php';
+require_once './controllers/TagController.php';
 
 $db = Database::getInstance();
 $imageController = new ImageController($db);
+$tagController = new TagController($db);
 
 $images = $imageController->getAllImages();
+$tags = $tagController->getAllTags();
+var_dump($tags);
+
+if (isset($_GET['tag_id'])) {
+    $tagId = $_GET['tag_id'];
+    $images = $imageController->getImagesByTag($tagId);
+} else {
+    $images = $imageController->getAllImages();
+}
 
 ?>
 
@@ -21,13 +32,14 @@ $images = $imageController->getAllImages();
 </head>
 
 <body>
-    <h2>Filter by category</h2>
+    <h2>Filter by tags</h2>
     <select id="select-dropdown" class="select-dropdown">
-        <option value="option1" class="select-option">All</option>
-        <option value="option2" class="select-option">Option 2</option>
-        <option value="option3" class="select-option">Option 3</option>
-        <option value="option4" class="select-option">Option 4</option>
+        <option value="all" class="select-option" <?php echo !isset($_GET['tag_id']) || $_GET['tag_id'] == 'all' ? ' selected' : ''; ?>>All</option>
+        <?php foreach ($tags as $tag): ?>
+            <option value="<?php echo $tag['tag_id']; ?>" class="select-option" <?php echo isset($_GET['tag_id']) && $_GET['tag_id'] == $tag['tag_id'] ? ' selected' : ''; ?>><?php echo $tag['name']; ?></option>
+        <?php endforeach; ?>
     </select>
+
 
     <div class="flex-box">
         <?php if (!empty($images)): ?>
@@ -45,7 +57,16 @@ $images = $imageController->getAllImages();
             <p>No images found.</p>
         <?php endif; ?>
     </div>
-
+    <script>
+        document.getElementById('select-dropdown').addEventListener('change', function () {
+            var tagId = this.value;
+            if (tagId === 'all') {
+                location.href = 'index.php';
+            } else {
+                location.href = 'index.php?tag_id=' + tagId;
+            }
+        });
+    </script>
 </body>
 
 </html>
