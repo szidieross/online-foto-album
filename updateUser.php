@@ -8,7 +8,7 @@ include_once ("controllers/DoctorController.php");
 $database = Database::getInstance();
 $userHandler = new UserController($database);
 
-if (isset($_SESSION["username"])) {
+if (!isset($_SESSION["username"])) {
     header("Location: login.php");
 }
 

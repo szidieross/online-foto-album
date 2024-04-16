@@ -165,6 +165,35 @@ class ImageController
         $stmt->close();
     }
 
+    public function createTag($tagName)
+    {
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("INSERT INTO tags (name) VALUES (?)");
+        $stmt->bind_param("s", $tagName);
+        if ($stmt->execute()) {
+            $tagId = $conn->insert_id;
+            return $tagId;
+        } else {
+            echo "Error creating tag: " . $stmt->error;
+            return false;
+        }
+    }
+
+    // Function to attach a tag to an image
+    public function attachTagToImage($imageId, $tagId)
+    {
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("INSERT INTO image_tags (image_id, tag_id) VALUES (?, ?)");
+        $stmt->bind_param("ii", $imageId, $tagId);
+        if ($stmt->execute()) {
+            echo "Tag attached successfully to the image.";
+            return true;
+        } else {
+            echo "Error attaching tag to image: " . $stmt->error;
+            return false;
+        }
+    }
+
     // Kép törlése
     public function deleteImage($imageId)
     {

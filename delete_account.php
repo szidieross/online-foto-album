@@ -1,10 +1,10 @@
 <?php
-session_start();
+// session_start();
 
-// if (!isset($_SESSION["username"])) {
-//     header("Location: login.php"); // Redirect to login page if not logged in
-//     exit;
-// }
+if (!isset($_SESSION["username"])) {
+    header("Location: login.php");
+    exit;
+}
 
 require_once './controllers/UserController.php';
 require_once './controllers/Database.php';

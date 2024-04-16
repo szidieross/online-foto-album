@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 include_once './includes/header.php';
 require_once './controllers/Database.php';
 require_once './controllers/ImageController.php';

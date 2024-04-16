@@ -24,6 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     if (isset($_POST["title"]) && !empty($_POST["title"])) {
         $title = $_POST["title"];
     }
+    if (isset($_POST["tags"]) && !empty($_POST["tags"])) {
+        $tags = explode(',', $_POST["tags"]);
+    }
     if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
         $image = $_FILES["image"];
 
@@ -55,29 +58,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             $db = Database::getInstance();
             $conn = $db->getConnection();
 
-            $imageController->uploadImage($userId, $fileName, $title);
+            // $imageController->uploadImage($userId, $fileName, $title);
+            $imageId=$imageController->uploadImage($userId, $fileName, $title);
 
-            // Retrieve user ID based on username
-            // $username = $_SESSION["username"];
-            // $sql = "SELECT user_id FROM users WHERE username = ?";
-            // $stmt = $conn->prepare($sql);
-            // $stmt->bind_param("s", $username);
-            // $stmt->execute();
-            // $result = $stmt->get_result();
-            // $row = $result->fetch_assoc();
-            // $userId = $row["user_id"];
-
-            // Insert image information into the database
-            // $title = $_POST['title'] ?? '';
-            // $sql = "INSERT INTO images (user_id, file_name, title) VALUES (?, ?, ?)";
-            // $stmt = $conn->prepare($sql);
-            // $stmt->bind_param("iss", $userId, $fileName, $title);
-            // if ($stmt->execute()) {
-            //     echo "Image information saved to database.";
-            // } else {
-            //     echo "Error: " . $stmt->error;
-            // }
-            // $stmt->close();
+            foreach ($tags as $tag) {
+                $tagId = $imageController->createTag($tag); // Create tag if it doesn't exist
+                $imageController->attachTagToImage($imageId, $tagId); // Attach tag to the uploaded image
+            }
         } else {
             echo "Failed to upload image.";
         }

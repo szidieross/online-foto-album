@@ -156,7 +156,7 @@ class UserController
 
     public function logoutUser()
     {
-        session_start();
+        // session_start();
         unset($_SESSION["username"]);
         session_destroy();
         // header("Location: ../home.php");

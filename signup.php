@@ -1,8 +1,8 @@
 <?php
-session_start();
-require_once ('./includes/header.php');
-require_once ('controllers/UserController.php');
-require_once ('controllers/Database.php');
+// session_start();
+require_once './includes/header.php';
+require_once 'controllers/UserController.php';
+require_once 'controllers/Database.php';
 
 $database = Database::getInstance();
 
@@ -64,10 +64,10 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
     <div class="container">
         <p>Already have an account?</p>
         <a href="login.php">
-            <button  class="form-button">Sign in</button></a>
+            <button class="form-button">Sign in</button></a>
         <h2>Regisztralj</h2>
 
-        <form method="POST" action=""  class="form">
+        <form method="POST" action="" class="form">
             First Name: <input type="text" name="first_name" id="" required><br><br>
             Last Name: <input type="text" name="last_name" id="" required><br><br>
             Username: <input type="text" name="username" id="" required><br><br>
@@ -76,7 +76,7 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
             Confirm Password: <input type="password" name="confirmPassword" id="" required><br><br>
             <input type="submit" name="sign_up" class="button" value="Sign Up" class="form-button">
         </form>
-        <p>Already have an account? <a href="login.php"> <button  class="form-button">Sign in</button></a></p>
+        <p>Already have an account? <a href="login.php"> <button class="form-button">Sign in</button></a></p>
     </div>
 </body>
 

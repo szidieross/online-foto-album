@@ -1,9 +1,9 @@
 <?php
 // session_start();
 
-include_once ('./includes/header.php');
-include_once ('./controllers/UserController.php');
-require_once ('controllers/Database.php');
+include_once './includes/header.php';
+include_once './controllers/UserController.php';
+require_once 'controllers/Database.php';
 
 $database = Database::getInstance();
 
