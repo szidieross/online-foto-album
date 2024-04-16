@@ -73,4 +73,28 @@ class TagController
             return null;
         }
     }
+
+    public function getTagsByUserId($userId)
+    {
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT DISTINCT t.* FROM tags t 
+                            INNER JOIN image_tags it ON t.tag_id = it.tag_id
+                            INNER JOIN images i ON it.image_id = i.image_id
+                            WHERE i.user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $tags = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $tags[] = $row;
+            }
+        }
+
+        return $tags;
+    }
+
 }

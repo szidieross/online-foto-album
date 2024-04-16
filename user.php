@@ -20,15 +20,12 @@ if (isset($_GET['user_id'])) {
 
 $userId = $_GET['user_id'];
 $user = $userController->getUserById($userId);
-// $userName = $user["username"];
 $userName = $user["first_name"] . " " . $user["last_name"];
-// $images = $imageController->getUserImages($userId);
 
-$tags = $tagController->getAllTags();
+$tags = $tagController->getTagsByUserId($userId);
 
 if (isset($_GET['tag_id'])) {
     $tagId = $_GET['tag_id'];
-    // $images = $imageController->getImagesByTag($tagId);
     $images = $imageController->getUserImagesByTag($userId, $tagId);
 } else {
     $images = $imageController->getUserImages($userId);
@@ -41,7 +38,6 @@ if (isset($_GET['tag_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <title>User Images</title> -->
     <title><?php echo $userName . "'s Gallery" ?></title>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
@@ -49,14 +45,6 @@ if (isset($_GET['tag_id'])) {
 <body>
     <div class="container">
         <h1><?php echo $userName . "'s Gallery" ?></h1>
-
-        <!-- <h2>Filter images by category</h2>
-        <select id="select-dropdown">
-            <option value="option1">All</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-            <option value="option4">Option 4</option>
-        </select> -->
         <h2>Filter by tags</h2>
         <select id="select-dropdown" class="select-dropdown">
             <option value="all" class="select-option" <?php echo !isset($_GET['tag_id']) || $_GET['tag_id'] == 'all' ? ' selected' : ''; ?>>All</option>
@@ -86,11 +74,9 @@ if (isset($_GET['tag_id'])) {
         document.getElementById('select-dropdown').addEventListener('change', function () {
             var tagId = this.value;
             if (tagId === 'all') {
-                // location.href = 'index.php';
-                location.href = 'user.php?user_id=' + $userId;
+                location.href = 'user.php?user_id=<?php echo $userId; ?>';
             } else {
-                // location.href = 'index.php?tag_id=' + tagId;
-                location.href = 'user.php?user_id=' + $userId + '&tag_id=' + tagId;
+                location.href = 'user.php?user_id=<?php echo $userId; ?>&tag_id=' + tagId;
             }
         });
     </script>
