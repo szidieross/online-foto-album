@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 </head>
 
 <body>
-    <h1>Welcome, <?php echo $user['username']; ?>!</h1>
+    <h1>Welcome, <?php echo $user['first_name']; ?>!</h1>
     <h2>Your Profile</h2>
     <form method="POST" action=""  class="form">
         <label for="first_name">First Name:</label>

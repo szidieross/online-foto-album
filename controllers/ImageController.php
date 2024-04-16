@@ -73,25 +73,25 @@ class ImageController
     // }
 
     public function getUserImages($userId)
-{
-    // Adatbázisból lekérdezés a felhasználó azonosítója alapján
-    $conn = $this->db->getConnection();
-    $stmt = $conn->prepare("SELECT * FROM images WHERE user_id = ?");
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    
-    $result = $stmt->get_result();
-    
-    $images = [];
-    
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $images[] = $row;
+    {
+        // Adatbázisból lekérdezés a felhasználó azonosítója alapján
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM images WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $images = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $images[] = $row;
+            }
         }
+
+        return $images;
     }
-    
-    return $images;
-}
 
     // Egy adott kép adatainak lekérdezése
     // public function getImageById($imageId)
@@ -112,33 +112,34 @@ class ImageController
     //     }
     // }
     public function getImageById($imageId)
-{
-    // Adatbázisból lekérdezés az azonosító alapján
-    $conn = $this->db->getConnection();
-    $stmt = $conn->prepare("SELECT * FROM images WHERE image_id = ?");
-    $stmt->bind_param("i", $imageId);
-    $stmt->execute();
+    {
+        // Adatbázisból lekérdezés az azonosító alapján
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM images WHERE image_id = ?");
+        $stmt->bind_param("i", $imageId);
+        $stmt->execute();
 
-    $result = $stmt->get_result();
+        $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $image = $result->fetch_assoc();
-        return $image;
-    } else {
-        return null;
+        if ($result->num_rows > 0) {
+            $image = $result->fetch_assoc();
+            return $image;
+        } else {
+            return null;
+        }
     }
-}
 
     // Új kép feltöltése
-    public function uploadImage($userId, $fileName, $title, $tags)
+    public function uploadImage($userId, $fileName, $title)
     {
         // Adatbázisba új kép feltöltése
         $conn = $this->db->getConnection();
-        $stmt = $conn->prepare("INSERT INTO images (user_id, file_name, title, tags) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("isss", $userId, $fileName, $title, $tags);
+        $stmt = $conn->prepare("INSERT INTO images (user_id, file_name, title) VALUES (?, ?, ?)");
+        $stmt->bind_param("iss", $userId, $fileName, $title);
 
         if ($stmt->execute()) {
             $imageId = $conn->insert_id;
+            $stmt->close();
             return $imageId;
         } else {
             echo "Hiba a kép feltöltése során: " . $stmt->error;

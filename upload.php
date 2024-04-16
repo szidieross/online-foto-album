@@ -3,14 +3,27 @@
 
 include_once './includes/header.php';
 require_once './controllers/Database.php';
+require_once './controllers/ImageController.php';
+require_once './controllers/UserController.php';
 
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit;
 }
 
+$username = $_SESSION["username"];
+$userController = new UserController($db);
+$imageController = new ImageController($db);
+$user = $userController->getUserByName($username);
+$userId = $user["user_id"];
+var_dump($user);
+echo "userId: " . $userId;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     // Check if file was uploaded without errors
+    if (isset($_POST["title"]) && !empty($_POST["title"])) {
+        $title = $_POST["title"];
+    }
     if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
         $image = $_FILES["image"];
 
@@ -42,28 +55,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             $db = Database::getInstance();
             $conn = $db->getConnection();
 
+            $imageController->uploadImage($userId, $fileName, $title);
+
             // Retrieve user ID based on username
-            $username = $_SESSION["username"];
-            $sql = "SELECT user_id FROM users WHERE username = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
-            $userId = $row["user_id"];
+            // $username = $_SESSION["username"];
+            // $sql = "SELECT user_id FROM users WHERE username = ?";
+            // $stmt = $conn->prepare($sql);
+            // $stmt->bind_param("s", $username);
+            // $stmt->execute();
+            // $result = $stmt->get_result();
+            // $row = $result->fetch_assoc();
+            // $userId = $row["user_id"];
 
             // Insert image information into the database
-            $title = $_POST['title'] ?? '';
-            $tags = isset($_POST['tags']) ? explode(',', $_POST['tags']) : array();
-            $sql = "INSERT INTO images (file_name, user_id, title, tags) VALUES (?, ?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("siss", $fileName, $userId, $title, $serializedTags);
-            if ($stmt->execute()) {
-                echo "Image information saved to database.";
-            } else {
-                echo "Error: " . $stmt->error;
-            }
-            $stmt->close();
+            // $title = $_POST['title'] ?? '';
+            // $sql = "INSERT INTO images (user_id, file_name, title) VALUES (?, ?, ?)";
+            // $stmt = $conn->prepare($sql);
+            // $stmt->bind_param("iss", $userId, $fileName, $title);
+            // if ($stmt->execute()) {
+            //     echo "Image information saved to database.";
+            // } else {
+            //     echo "Error: " . $stmt->error;
+            // }
+            // $stmt->close();
         } else {
             echo "Failed to upload image.";
         }
