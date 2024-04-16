@@ -13,6 +13,10 @@ body {
     color: var(--secondary-text-color);
 }
 
+.container {
+    padding: 20px;
+}
+
 a {
     text-decoration: none;
 }

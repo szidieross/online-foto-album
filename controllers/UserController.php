@@ -9,10 +9,8 @@ class UserController
         $this->db = $db;
     }
 
-    // Az összes felhasználó adatainak lekérdezése
     public function getUsers()
     {
-        // Adatbázisból lekérdezés az azonosító alapján
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("SELECT * FROM users");
         $stmt->execute();
@@ -27,10 +25,8 @@ class UserController
         }
     }
 
-    // Egy adott felhasználó adatainak lekérdezése
     public function getUserById($userId)
     {
-        // Adatbázisból lekérdezés az azonosító alapján
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("SELECT * FROM users WHERE iserId = ?");
         $stmt->bind_param("i", $userId);
@@ -46,10 +42,8 @@ class UserController
         }
     }
 
-    // Egy adott felhasználó adatainak lekérdezése
     public function getUserByName($username)
     {
-        // Adatbázisból lekérdezés az azonosító alapján
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -65,10 +59,8 @@ class UserController
         }
     }
 
-    // Felhasználó adatainak frissítése
     public function updateUser($firstName, $lastName, $username, $email, $userId)
     {
-        // Adatbázisban a felhasználó adatainak frissítése
         $conn = $this->db->getConnection();
 
         $sql = "UPDATE users SET first_name=?, last_name=?, username=?, email=? WHERE user_id=?";
@@ -85,10 +77,8 @@ class UserController
         $stmt->close();
     }
 
-    // Felhasználó törlése
     public function deleteUser($userId)
     {
-        // Adatbázisból felhasználó törlése
         $conn = $this->db->getConnection();
 
         $sql = "DELETE FROM users WHERE user_id=?";
@@ -105,7 +95,6 @@ class UserController
         
         unset($_SESSION["username"]);
         session_destroy();
-        // $this->logoutUser();
     }
     public function createUser($firstName, $lastName, $username, $email, $password)
     {
@@ -156,10 +145,8 @@ class UserController
 
     public function logoutUser()
     {
-        // session_start();
         unset($_SESSION["username"]);
         session_destroy();
-        // header("Location: ../home.php");
         exit;
     }
 

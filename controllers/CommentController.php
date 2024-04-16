@@ -48,26 +48,6 @@ class CommentController
         return $comments;
     }
 
-    // public function getCommnentsByImageId($imageId)
-    // {
-    //     $conn = $this->db->getConnection();
-    //     $stmt = $conn->prepare("SELECT * FROM comments WHERE image_id = ?");
-    //     $stmt->bind_param("i", $imageId);
-    //     $stmt->execute();
-
-    //     $result = $stmt->get_result();
-
-    //     $comments = [];
-
-    //     if ($result->num_rows > 0) {
-    //         while ($row = $result->fetch_assoc()) {
-    //             $comments[] = $row;
-    //         }
-    //     }
-
-    //     return $comments;
-    // }
-
     public function deleteComment($commentId)
     {
         $conn = $this->db->getConnection();

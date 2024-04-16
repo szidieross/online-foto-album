@@ -17,8 +17,6 @@ $user = $userController->getUserByName($username);
 $userId = $user['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    // Call deleteUser function
-    // $username = $_POST["username"];
     $userController->deleteUser($user['user_id']);
     header("Location: index.php");
 }

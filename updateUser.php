@@ -1,55 +1,26 @@
 <?php
 // session_start();
-include_once ("includes/header.php");
-include_once ("classes/Database.php");
-include_once ("controllers/UserController.php");
-include_once ("controllers/DoctorController.php");
-
-$database = Database::getInstance();
-$userHandler = new UserController($database);
+require_once './includes/header.php';
+require_once './controllers/Database.php';
+require_once './controllers/UserController.php';
 
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
+    exit;
 }
 
-$id = isset($_GET['id']) ? $_GET['id'] : 0;
+$db = Database::getInstance();
+$userController = new UserController($db);
 
-$sql = "SELECT * FROM users WHERE user_id=?";
-$stmt = $database->prepare($sql);
+$username = $_SESSION["username"];
+$user = $userController->getUserByName($username);
 
-$stmt->bind_param("i", $id);
-$stmt->execute();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    $firstName = $_POST['first_name'];
+    $lastName = $_POST['last_name'];
+    $email = $_POST['email'];
 
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $userData = $result->fetch_assoc();
-    $firstName = $userData['first_name'];
-    $lastName = $userData['last_name'];
-    $username = $userData['username'];
-    $email = $userData['email'];
-} else {
-    die("No user found with ID: " . $id);
-}
-
-$stmt->close();
-
-if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstName = $_POST["first_name"];
-    $lastName = $_POST["last_name"];
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-
-    if (empty($firstName) || empty($lastName) || empty($username) || empty($email)) {
-        echo "All fields are required!";
-    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email format!";
-    } else if (isset($_SESSION['doctor'])) {
-        $doctorHandler->updateDoctorData($firstName, $lastName, $id);
-        $userHandler->updateUser($firstName, $lastName, $username, $email, $id);
-    } else {
-        $userHandler->updateUser($firstName, $lastName, $username, $email, $id);
-    }
+    $userController->updateUser($firstName, $lastName, $username, $email, $user['user_id']);
 }
 ?>
 
@@ -59,32 +30,40 @@ if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Szerkeszt</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 
 <body>
     <div class="container">
-        <div>
-            <a href="./logout.php"><button class="submit">Logout</button></a>
-            <a href="index.php"><button class="button">Home</button></a>
-        </div>
+        <h1>Welcome, <?php echo $user['first_name']; ?>!</h1>
+        <h2>Your Profile</h2>
         <form method="POST" action="" class="form">
-            <input type="hidden" name="id" class="form-text-input" value="<?php echo $userData["user_id"]; ?>">
-            First Name: <input type="text" class="form-text-input" name="first_name" value="<?php echo $firstName; ?>"
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" class="form-text-input" name="first_name"
+                value="<?php echo $user['first_name']; ?>" required><br><br>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" class="form-text-input"
+                value="<?php echo $user['last_name']; ?>" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-text-input" value="<?php echo $user['email']; ?>"
                 required><br><br>
-            Last Name: <input type="text" class="form-text-input" name="last_name" value="<?php echo $lastName; ?>"
-                required><br><br>
-            Username: <input type="text" class="form-text-input" name="username" value="<?php echo $username; ?>"
-                required><br><br>
-            Email: <input type="email" class="form-text-input" name="email" value="<?php echo $email; ?>"
-                required><br><br>
-            <input type="submit" name="update" class="submit" value="Save changes" class="form-button">
+
+            <input type="submit" name="submit" value="Update Profile" class="submit">
         </form>
+        <form method="POST" action="delete_account.php" class="form">
+            <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
+            <input type="submit" name="submit" value="Delete Account" class="submit">
+        </form>
+
+        <a href="logout.php" class="submit">Logout</a>
     </div>
 </body>
 
 </html>
+
 <?php
 include_once './includes/footer.php';
 ?>

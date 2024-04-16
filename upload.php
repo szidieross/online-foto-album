@@ -79,23 +79,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 </head>
 
 <body>
-    <h2>Upload Image</h2>
-    <form action="" method="post" enctype="multipart/form-data" class="form">
-        <!-- <input type="file" class="form-text-input" name="image" accept="image/*" required> -->
-        <label class="custom-file-input">
-            <input type="file" name="image" accept="image/*" required>
-            <span class="custom-file-input-label">Choose Image</span>
-        </label>
+    <div class="container">
+        <h2>Upload Image</h2>
+        <form action="" method="post" enctype="multipart/form-data" class="form">
+            <!-- <input type="file" class="form-text-input" name="image" accept="image/*" required> -->
+            <label class="custom-file-input">
+                <input type="file" name="image" accept="image/*" required>
+                <span class="custom-file-input-label">Choose Image</span>
+            </label>
 
-        <label for="title">Title:</label>
-        <input type="text" class="form-text-input" id="title" name="title"><br>
+            <label for="title">Title:</label>
+            <input type="text" class="form-text-input" id="title" name="title"><br>
 
-        <label for="tags">Tags:</label>
-        <input type="text" class="form-text-input" id="tags" name="tags"><br>
+            <label for="tags">Tags:</label>
+            <input type="text" class="form-text-input" id="tags" name="tags"><br>
 
-        <input type="submit" value="Upload Image" name="submit" class="form-button">
-
-    </form>
+            <input type="submit" value="Upload Image" name="submit" class="form-button">
+        </form>
+    </div>
 </body>
 
 </html>

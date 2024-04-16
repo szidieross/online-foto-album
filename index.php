@@ -31,30 +31,32 @@ if (isset($_GET['tag_id'])) {
 </head>
 
 <body>
-    <h2>Filter by tags</h2>
-    <select id="select-dropdown" class="select-dropdown">
-        <option value="all" class="select-option" <?php echo !isset($_GET['tag_id']) || $_GET['tag_id'] == 'all' ? ' selected' : ''; ?>>All</option>
-        <?php foreach ($tags as $tag): ?>
-            <option value="<?php echo $tag['tag_id']; ?>" class="select-option" <?php echo isset($_GET['tag_id']) && $_GET['tag_id'] == $tag['tag_id'] ? ' selected' : ''; ?>><?php echo $tag['name']; ?></option>
-        <?php endforeach; ?>
-    </select>
-
-
-    <div class="flex-box">
-        <?php if (!empty($images)): ?>
-            <?php foreach ($images as $image): ?>
-                <div class="flex-item">
-                    <a href="user.php?user_id=<?php echo $image['user_id']; ?>">
-                        <?php
-                        $imagePath = "uploads/" . $image['file_name'];
-                        ?>
-                        <img src="<?php echo $imagePath; ?>" alt="Uploaded Image" class="flex-image">
-                    </a>
-                </div>
+    <div class="container">
+        <h2>Filter by tags</h2>
+        <select id="select-dropdown" class="select-dropdown">
+            <option value="all" class="select-option" <?php echo !isset($_GET['tag_id']) || $_GET['tag_id'] == 'all' ? ' selected' : ''; ?>>All</option>
+            <?php foreach ($tags as $tag): ?>
+                <option value="<?php echo $tag['tag_id']; ?>" class="select-option" <?php echo isset($_GET['tag_id']) && $_GET['tag_id'] == $tag['tag_id'] ? ' selected' : ''; ?>><?php echo $tag['name']; ?></option>
             <?php endforeach; ?>
-        <?php else: ?>
-            <p>No images found.</p>
-        <?php endif; ?>
+        </select>
+
+
+        <div class="flex-box">
+            <?php if (!empty($images)): ?>
+                <?php foreach ($images as $image): ?>
+                    <div class="flex-item">
+                        <a href="user.php?user_id=<?php echo $image['user_id']; ?>">
+                            <?php
+                            $imagePath = "uploads/" . $image['file_name'];
+                            ?>
+                            <img src="<?php echo $imagePath; ?>" alt="Uploaded Image" class="flex-image">
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No images found.</p>
+            <?php endif; ?>
+        </div>
     </div>
     <script>
         document.getElementById('select-dropdown').addEventListener('change', function () {
