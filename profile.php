@@ -53,14 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<?php echo $user['email']; ?>" required><br><br>
 
-        <input type="submit" name="submit" value="Update Profile" class="form-button">
+        <input type="submit" name="submit" value="Update Profile" class="submit">
     </form>
     <form method="POST" action="delete_account.php"  class="form">
         <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
-        <input type="submit" name="submit" value="Delete Account" class="form-button">
+        <input type="submit" name="submit" value="Delete Account" class="submit">
     </form>
 
-    <a href="logout.php">Logout</a>
+    <a href="logout.php" class="submit">Logout</a>
 </body>
 
 </html>

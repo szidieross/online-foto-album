@@ -56,24 +56,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
     <?php endif; ?>
 
 
-    <form action="" method="post">
-        <label for="comment">Add a comment:</label><br>
-        <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br>
-        <input type="submit" value="Submit" name="submit_comment">
+    <form action="" method="post" class="comment-form">
+        <div class="comment-container">
+            <label for="comment" class="comment-form-label">Add a comment:</label><br>
+            <textarea id="comment" class="comment-textarea" name="comment" rows="4" cols="50" required></textarea><br>
+            <input type="submit" class="submit" value="Submit" name="submit_comment">
+        </div>
     </form>
 
     <div class="comments-section">
-        <h2>Comments</h2>
-        <?php
-        $comments = $commentController->getCommnentsByImageId($imageId);
-        if (!empty($comments)) {
-            foreach ($comments as $comment) {
-                echo "<p>{$comment['comment']}</p>";
+        <div class="comments-container">
+            <h2>Comments</h2>
+            <?php
+            $comments = $commentController->getCommnentsByImageId($imageId);
+            if (!empty($comments)) {
+                foreach ($comments as $comment) {
+                    echo "<div class='comment'>";
+                    echo "<p>{$comment['comment']}</p>";
+                    echo "<p>By: {$comment['first_name']} {$comment['last_name']} ({$comment['username']})</p>";
+                    echo "<p>Date: {$comment['created_at']}</p>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>No comments yet.</p>";
             }
-        } else {
-            echo "<p>No comments yet.</p>";
-        }
-        ?>
+            ?>
+
+        </div>
     </div>
 
 </body>

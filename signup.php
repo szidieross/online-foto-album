@@ -74,9 +74,9 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
             Email: <input type="email" name="email" id="" required><br><br>
             Password: <input type="password" name="password" id="" required><br><br>
             Confirm Password: <input type="password" name="confirmPassword" id="" required><br><br>
-            <input type="submit" name="sign_up" class="button" value="Sign Up" class="form-button">
+            <input type="submit" name="sign_up" class="submit" value="Sign Up" class="form-button">
         </form>
-        <p>Already have an account? <a href="login.php"> <button class="form-button">Sign in</button></a></p>
+        <p>Already have an account? <a href="login.php"> <button class="submit">Sign in</button></a></p>
     </div>
 </body>
 

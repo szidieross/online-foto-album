@@ -66,7 +66,7 @@ if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <div>
-            <a href="./logout.php"><button class="button">Logout</button></a>
+            <a href="./logout.php"><button class="submit">Logout</button></a>
             <a href="index.php"><button class="button">Home</button></a>
         </div>
         <form method="POST" action=""  class="form">
@@ -75,7 +75,7 @@ if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
             Last Name: <input type="text" name="last_name" value="<?php echo $lastName; ?>" required><br><br>
             Username: <input type="text" name="username" value="<?php echo $username; ?>" required><br><br>
             Email: <input type="email" name="email" value="<?php echo $email; ?>" required><br><br>
-            <input type="submit" name="update" class="button" value="Save changes" class="form-button">
+            <input type="submit" name="update" class="submit" value="Save changes" class="form-button">
         </form>
     </div>
 </body>

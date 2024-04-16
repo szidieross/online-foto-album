@@ -44,7 +44,7 @@ if (isset($_POST["login"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
                     <input type="password" name="password" class="form-control">
                     <!-- </div> -->
                     <!-- <div class="form-group"> -->
-                    <input type="submit" name="login" class="button" value="Login" class="form-button">
+                    <input type="submit" name="login" class="submit" value="Login" class="form-button">
                     <!-- </div> -->
                 </form>
                 <p>Don't have an account? <a href="signup.php"> <button  class="form-button">Sign up</button></a></p>
