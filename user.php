@@ -22,15 +22,16 @@ $userId = $_GET['user_id'];
 $user = $userController->getUserById($userId);
 // $userName = $user["username"];
 $userName = $user["first_name"] . " " . $user["last_name"];
-$images = $imageController->getUserImages($userId);
+// $images = $imageController->getUserImages($userId);
 
 $tags = $tagController->getAllTags();
 
 if (isset($_GET['tag_id'])) {
     $tagId = $_GET['tag_id'];
-    $images = $imageController->getImagesByTag($tagId);
+    // $images = $imageController->getImagesByTag($tagId);
+    $images = $imageController->getUserImagesByTag($userId, $tagId);
 } else {
-    $images = $imageController->getAllImages();
+    $images = $imageController->getUserImages($userId);
 }
 ?>
 
@@ -40,13 +41,14 @@ if (isset($_GET['tag_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Images</title>
+    <!-- <title>User Images</title> -->
+    <title><?php echo $userName . "'s Gallery" ?></title>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 
 <body>
     <div class="container">
-        <h1><?php echo $userName ?>'s Gallery</h1>
+        <h1><?php echo $userName . "'s Gallery" ?></h1>
 
         <!-- <h2>Filter images by category</h2>
         <select id="select-dropdown">
@@ -84,9 +86,11 @@ if (isset($_GET['tag_id'])) {
         document.getElementById('select-dropdown').addEventListener('change', function () {
             var tagId = this.value;
             if (tagId === 'all') {
-                location.href = 'index.php';
+                // location.href = 'index.php';
+                location.href = 'user.php?user_id=' + $userId;
             } else {
-                location.href = 'index.php?tag_id=' + tagId;
+                // location.href = 'index.php?tag_id=' + tagId;
+                location.href = 'user.php?user_id=' + $userId + '&tag_id=' + tagId;
             }
         });
     </script>

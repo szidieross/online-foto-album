@@ -17,7 +17,14 @@ if (isset($_GET['image_id'])) {
     header("Location: notfound.php");
     exit;
 }
+
+$imageId = $_GET['image_id'];
 $image = $imageController->getImageById($imageId);
+$title = $image["title"];
+$userId = $image["user_id"];
+$imagesUser = $userController->getUserById($userId);
+$imagesUserName = $imagesUser["first_name"] . " " . $imagesUser["last_name"];
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
     if (!empty($_POST["comment"])) {
@@ -37,13 +44,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image</title>
+    <title><?php echo $title . " by " . $imagesUserName ?></title>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Image</h1>
+        <h1><?php echo $title . " by " . $imagesUserName ?></h1>
 
         <?php if (!empty($image)): ?>
             <div class="image-holder">

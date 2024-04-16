@@ -85,6 +85,29 @@ class ImageController
         return $images;
     }
 
+    public function getUserImagesByTag($userId, $tagId)
+    {
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM images 
+                        INNER JOIN image_tags ON images.image_id = image_tags.image_id
+                        WHERE images.user_id = ? AND image_tags.tag_id = ?");
+        $stmt->bind_param("ii", $userId, $tagId);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $images = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $images[] = $row;
+            }
+        }
+
+        return $images;
+    }
+
+
     public function uploadImage($userId, $fileName, $title)
     {
         $conn = $this->db->getConnection();
