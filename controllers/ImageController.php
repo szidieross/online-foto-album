@@ -144,17 +144,36 @@ class ImageController
     {
         $conn = $this->db->getConnection();
 
-        $sql = "DELETE images WHERE image_id=?";
-        $stmt = $conn->prepare($sql);
-
-        $stmt->bind_param("i", $imageId);
-
-        if (!$stmt->execute()) {
-            die("Hiba az adat frissítése során: " . $stmt->error);
+        $commentController = new CommentController($this->db);
+        $comments = $commentController->getCommnentsByImageId($imageId);
+        foreach ($comments as $comment) {
+            $commentId = $comment['comment_id'];
+            $commentController->deleteComment($commentId);
         }
 
-        echo "Image deleted.";
-        $stmt->close();
+        $sql_delete_tags = "DELETE FROM image_tags WHERE image_id=?";
+        $stmt_delete_tags = $conn->prepare($sql_delete_tags);
+        $stmt_delete_tags->bind_param("i", $imageId);
+
+        if (!$stmt_delete_tags->execute()) {
+            die("Error deleting image tags: " . $stmt_delete_tags->error);
+        }
+
+        $sql_delete_image = "DELETE FROM images WHERE image_id=?";
+        $stmt_delete_image = $conn->prepare($sql_delete_image);
+        $stmt_delete_image->bind_param("i", $imageId);
+
+        if (!$stmt_delete_image->execute()) {
+            die("Error deleting image: " . $stmt_delete_image->error);
+        }
+
+        echo "Image deleted successfully.";
+
+        $stmt_delete_tags->close();
+        $stmt_delete_image->close();
     }
+
+
+
 }
 ?>

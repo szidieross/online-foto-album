@@ -46,6 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_comment"])) {
     $commentController->deleteComment($commentId);
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
+    $imageController->deleteImage($imageId);
+    header("Location: user.php?user_id=" . $currentUserId);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +76,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_comment"])) {
             </div>
         <?php else: ?>
             <p>No image found.</p>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['username']) && $_SESSION['username'] == $imageUserName): ?>
+            <form action="" method="post">
+                <input type="submit" class="submit" value="Delete Image" name="delete_image">
+            </form>
         <?php endif; ?>
 
 

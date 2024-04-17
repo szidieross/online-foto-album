@@ -32,6 +32,12 @@ class TagController
     public function createTag($tagName)
     {
         $conn = $this->db->getConnection();
+
+        $existingTag = $this->getTagByName($tagName);
+        if ($existingTag) {
+            return $existingTag['tag_id'];
+        }
+
         $stmt = $conn->prepare("INSERT INTO tags (name) VALUES (?)");
         $stmt->bind_param("s", $tagName);
         if ($stmt->execute()) {
@@ -40,6 +46,23 @@ class TagController
         } else {
             echo "Error creating tag: " . $stmt->error;
             return false;
+        }
+    }
+
+    public function getTagByName($tagName)
+    {
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM tags WHERE name = ?");
+        $stmt->bind_param("s", $tagName);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $tag = $result->fetch_assoc();
+            return $tag;
+        } else {
+            return null;
         }
     }
 

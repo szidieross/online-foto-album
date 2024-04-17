@@ -59,6 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                 $tagId = $tagController->createTag($tag);
                 $tagController->attachTagToImage($imageId, $tagId);
             }
+
+            header("Location: image.php?image_id=" . $imageId);
         } else {
             echo "Failed to upload image.";
         }
@@ -82,7 +84,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     <div class="container">
         <h2>Upload Image</h2>
         <form action="" method="post" enctype="multipart/form-data" class="form">
-            <!-- <input type="file" class="form-text-input" name="image" accept="image/*" required> -->
             <label class="custom-file-input">
                 <input type="file" name="image" accept="image/*" required>
                 <span class="custom-file-input-label">Choose Image</span>
