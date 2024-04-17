@@ -40,6 +40,7 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
             $result = $userHandler->createUser($firstName, $lastName, $username, $email, $password);
             if ($result) {
                 echo "Registration successful!";
+                header("Location: login.php");
             } else {
                 echo "Error occurred during registration!";
             }

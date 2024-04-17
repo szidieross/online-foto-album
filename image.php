@@ -32,19 +32,6 @@ $imagesUser = $userController->getUserById($userId);
 $imageUserName = $imagesUser["username"];
 $imagesUserName = $imagesUser["first_name"] . " " . $imagesUser["last_name"];
 
-// $commentDate = strtotime($comment['created_at']);
-// $now = time();
-
-// // Check if the comment was made today
-// if (date('Y-m-d', $commentDate) === date('Y-m-d', $now)) {
-//     // If the comment was made today, include the time
-//     echo "<p class='comment-date'>Date: " . date('F j, Y H:i', $commentDate) . "</p>";
-// } else {
-//     // If the comment was not made today, only include the date
-//     echo "<p class='comment-date'>Date: " . date('F j, Y', $commentDate) . "</p>";
-// }
-
-
 if (isset($_SESSION["username"]) && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
     if (!empty($_POST["comment"])) {
 
@@ -54,6 +41,7 @@ if (isset($_SESSION["username"]) && $_SERVER["REQUEST_METHOD"] == "POST" && isse
 
         $comment = $_POST["comment"];
         $commentController->createComment($userId, $imageId, $comment);
+        header("Location: image.php?image_id=" . $imageId);
     }
 }
 
@@ -61,6 +49,7 @@ if (isset($_SESSION["username"]) && $_SERVER["REQUEST_METHOD"] == "POST" && isse
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_comment"])) {
     $commentId = $_POST["comment_id"];
     $commentController->deleteComment($commentId);
+    header("Location: image.php?image_id=" . $imageId);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
