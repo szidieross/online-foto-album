@@ -18,6 +18,12 @@ if (isset($_GET['image_id'])) {
     exit;
 }
 
+if (isset($_SESSION["username"])) {
+    $username = $_SESSION["username"];
+    $user = $userController->getUserByName($username);
+    $currentUserId = $user['user_id'];
+}
+
 $imageId = $_GET['image_id'];
 $image = $imageController->getImageById($imageId);
 $title = $image["title"];
@@ -26,12 +32,10 @@ $imagesUser = $userController->getUserById($userId);
 $imageUserName = $imagesUser["username"];
 $imagesUserName = $imagesUser["first_name"] . " " . $imagesUser["last_name"];
 
-$username = $_SESSION["username"];
-$user = $userController->getUserByName($username);
-$currentUserId = $user['user_id'];
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
+if (isset($_SESSION["username"]) && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
     if (!empty($_POST["comment"])) {
+
+        $username = $_SESSION["username"];
         $user = $userController->getUserByName($username);
         $userId = $user['user_id'];
 
@@ -86,12 +90,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
 
 
         <form action="" method="post" class="comment-form">
-            <div class="comment-container">
-                <label for="comment" class="comment-form-label">Add a comment:</label><br>
-                <textarea id="comment" class="comment-textarea" name="comment" rows="4" cols="50"
-                    required></textarea><br>
-                <input type="submit" class="submit" value="Submit" name="submit_comment">
-            </div>
+
+            <?php if (isset($_SESSION["username"])): ?>
+                <div class="comment-container">
+                    <label for="comment" class="comment-form-label">Add a comment:</label><br>
+                    <textarea id="comment" class="comment-textarea" name="comment" rows="4" cols="50"
+                        required></textarea><br>
+                    <input type="submit" class="submit" value="Submit" name="submit_comment">
+                </div>
+
+            <?php else: ?>
+                <div class="comment-container">
+                    <p class="comment-form-label">Log in to comment</p>
+                </div>
+            <?php endif ?>
         </form>
 
         <div class="comments-section">
