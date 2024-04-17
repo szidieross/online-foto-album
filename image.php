@@ -45,7 +45,6 @@ if (isset($_SESSION["username"]) && $_SERVER["REQUEST_METHOD"] == "POST" && isse
     }
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_comment"])) {
     $commentId = $_POST["comment_id"];
     $commentController->deleteComment($commentId);
@@ -71,10 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
 
 <body>
     <div class="container">
-        <!-- <h1><?php echo $title . " by " . $imagesUserName ?></h1> -->
         <h1><?php echo $title . " by <a class='link' href='user.php?user_id=" . $userId . "'>" . $imagesUserName . "</a>"; ?>
         </h1>
-
 
         <?php if (!empty($image)): ?>
             <div class="image-holder">
@@ -88,9 +85,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
         <?php endif; ?>
 
         <?php if (isset($_SESSION['username']) && $_SESSION['username'] == $imageUserName): ?>
-            <form action="" method="post">
-                <input type="submit" class="submit" value="Delete Image" name="delete_image">
-            </form>
+            <button id="updateImageButton" class='delete-button'>
+                <img src='./assets/images/settings.svg' alt='Settings'>
+            </button>
+
+            <div id="updateImageModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Update Image</h2>
+                    <form action="" method="post" enctype="multipart/form-data" class="update-form">
+                        <label for="newTitle">New Title:</label><br>
+                        <input type="text" id="newTitle" name="newTitle" required><br><br>
+                        <label for="newImage">New Image:</label><br>
+                        <input type="file" id="newImage" name="newImage" accept="image/*" required><br><br>
+                        <input type="submit" class="submit" value="Update" name="update_image">
+                    </form>
+                    <form action="" method="post">
+                        <input type="submit" class="submit" value="Delete Image" name="delete_image">
+                    </form>
+                </div>
+            </div>
+
+            <div id="modalBackdrop" class="modal-backdrop"></div>
+
         <?php endif; ?>
 
 
@@ -148,6 +165,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
         </div>
 
     </div>
+    <script>
+        var updateImageButton = document.getElementById("updateImageButton");
+        var updateImageModal = document.getElementById("updateImageModal");
+        var modalBackdrop = document.getElementById("modalBackdrop");
+
+        updateImageButton.onclick = function () {
+            updateImageModal.style.display = "block";
+            modalBackdrop.style.display = "block";
+        }
+
+        var closeButtons = document.getElementsByClassName("close");
+        for (var i = 0; i < closeButtons.length; i++) {
+            closeButtons[i].onclick = function () {
+                updateImageModal.style.display = "none";
+                modalBackdrop.style.display = "none";
+            }
+        }
+
+        window.onclick = function (event) {
+            if (event.target == updateImageModal) {
+                updateImageModal.style.display = "none";
+                modalBackdrop.style.display = "none";
+            }
+        }
+
+    </script>
 </body>
 
 </html>
