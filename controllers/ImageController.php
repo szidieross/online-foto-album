@@ -30,7 +30,7 @@ class ImageController
     public function getUserImages($userId)
     {
         $conn = $this->db->getConnection();
-        $stmt = $conn->prepare("SELECT * FROM images WHERE user_id = ?");
+        $stmt = $conn->prepare("SELECT * FROM images WHERE user_id = ? ORDER BY uploaded_at DESC");
         $stmt->bind_param("i", $userId);
         $stmt->execute();
 
@@ -68,7 +68,7 @@ class ImageController
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("SELECT * FROM images 
                             INNER JOIN image_tags ON images.image_id = image_tags.image_id
-                            WHERE image_tags.tag_id = ?");
+                            WHERE image_tags.tag_id = ? ORDER BY uploaded_at DESC");
         $stmt->bind_param("i", $tagId);
         $stmt->execute();
 
@@ -90,7 +90,7 @@ class ImageController
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("SELECT * FROM images 
                         INNER JOIN image_tags ON images.image_id = image_tags.image_id
-                        WHERE images.user_id = ? AND image_tags.tag_id = ?");
+                        WHERE images.user_id = ? AND image_tags.tag_id = ? ORDER BY uploaded_at DESC");
         $stmt->bind_param("ii", $userId, $tagId);
         $stmt->execute();
 
@@ -119,7 +119,7 @@ class ImageController
             $stmt->close();
             return $imageId;
         } else {
-            echo "Hiba a kép feltöltése során: " . $stmt->error;
+            echo "Error uploading image: " . $stmt->error;
             return false;
         }
     }
@@ -134,7 +134,7 @@ class ImageController
         $stmt->bind_param("ssssi", $title, $tags);
 
         if (!$stmt->execute()) {
-            die("Hiba az adat frissítése során: " . $stmt->error);
+            die("Error updating data: " . $stmt->error);
         }
         echo "Changes saved.";
         $stmt->close();
@@ -172,8 +172,5 @@ class ImageController
         $stmt_delete_tags->close();
         $stmt_delete_image->close();
     }
-
-
-
 }
 ?>

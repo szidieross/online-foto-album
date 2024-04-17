@@ -63,11 +63,7 @@ if (isset($_POST["sign_up"]) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
 <body>
     <div class="container">
-        <p>Already have an account?</p>
-        <a href="login.php">
-            <button class="form-button">Sign in</button></a>
-        <h2>Regisztralj</h2>
-
+        <h2>Sign up</h2>
         <form method="POST" action="" class="form">
             First Name: <input type="text" class="form-text-input" name="first_name" id="" required><br><br>
             Last Name: <input type="text" class="form-text-input" name="last_name" id="" required><br><br>

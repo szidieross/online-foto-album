@@ -69,7 +69,7 @@ class UserController
         $stmt->bind_param("ssssi", $firstName, $lastName, $username, $email, $userId);
 
         if (!$stmt->execute()) {
-            die("Hiba az adat frissítése során: " . $stmt->error);
+            die("Error updating user data: " . $stmt->error);
         }
 
         $_SESSION["username"] = $username;
@@ -87,7 +87,7 @@ class UserController
         $stmt->bind_param("i", $userId);
 
         if (!$stmt->execute()) {
-            die("Hiba az adat frissítése során: " . $stmt->error);
+            die("Error deleting user: " . $stmt->error);
         }
 
         echo "User deleted.";
@@ -105,8 +105,7 @@ class UserController
         if ($stmt->execute()) {
             $userId = $conn->insert_id;
             return $userId;
-        } else {
-            echo "Hiba a felhasználó létrehozása során: " . $stmt->error;
+        } else {"Error creating user: " . $stmt->error;
             return false;
         }
     }
@@ -116,15 +115,10 @@ class UserController
         $conn = $this->db->getConnection();
         $sql = "SELECT username, password FROM users WHERE username = ?";
         $stmt = $conn->prepare($sql);
-
-        if ($stmt === false) {
-            die("Hiba a lekerdezes elokeszitese soran: " . $conn->error);
-        }
-
         $stmt->bind_param("s", $username);
 
         if (!$stmt->execute()) {
-            die("Hiba a lekerdezes soran: " . $conn->error);
+            die("Could not log in: " . $conn->error);
         }
 
         $result = $stmt->get_result();

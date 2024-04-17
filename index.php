@@ -9,7 +9,8 @@ $imageController = new ImageController($db);
 $tagController = new TagController($db);
 
 $images = $imageController->getAllImages();
-$tags = $tagController->getAllTags();
+// $tags = $tagController->getAllTags();
+$tags = $tagController->getAllImageTags();
 
 if (isset($_GET['tag_id'])) {
     $tagId = $_GET['tag_id'];

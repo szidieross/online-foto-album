@@ -28,6 +28,25 @@ class TagController
 
         return $tags;
     }
+    public function getAllImageTags()
+{
+    $conn = $this->db->getConnection();
+    $stmt = $conn->prepare("SELECT DISTINCT tags.* FROM tags INNER JOIN image_tags ON tags.tag_id = image_tags.tag_id");
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $tags = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $tags[] = $row;
+        }
+    }
+
+    return $tags;
+}
+
 
     public function createTag($tagName)
     {
@@ -119,28 +138,4 @@ class TagController
 
         return $tags;
     }
-
-    public function getTagsByImageId($imageId)
-    {
-        $conn = $this->db->getConnection();
-        $stmt = $conn->prepare("SELECT t.* FROM tags t 
-                        INNER JOIN image_tags it ON t.tag_id = it.tag_id
-                        WHERE it.image_id = ?");
-        $stmt->bind_param("i", $imageId);
-        $stmt->execute();
-
-        $result = $stmt->get_result();
-
-        $tags = [];
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $tags[] = $row;
-            }
-        }
-
-        return $tags;
-    }
-
-
 }
