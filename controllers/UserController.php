@@ -92,7 +92,7 @@ class UserController
 
         echo "User deleted.";
         $stmt->close();
-        
+
         unset($_SESSION["username"]);
         session_destroy();
     }
@@ -134,6 +134,7 @@ class UserController
 
             if (password_verify($password, $row['password'])) {
                 $_SESSION["username"] = $username;
+                $_SESSION["user_id"] = $row['user_id'];
                 header("Location: index.php");
             } else {
                 echo "Wrong password";

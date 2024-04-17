@@ -25,10 +25,12 @@ $userId = $image["user_id"];
 $imagesUser = $userController->getUserById($userId);
 $imagesUserName = $imagesUser["first_name"] . " " . $imagesUser["last_name"];
 
+$username = $_SESSION["username"];
+$user = $userController->getUserByName($username);
+$currentUserId = $user['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
     if (!empty($_POST["comment"])) {
-        $username = $_SESSION["username"];
         $user = $userController->getUserByName($username);
         $userId = $user['user_id'];
 
@@ -36,6 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
         $commentController->createComment($userId, $imageId, $comment);
     }
 }
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_comment"])) {
+    $commentId = $_POST["comment_id"];
+    $commentController->deleteComment($commentId);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -78,21 +87,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
                 <h2>Comments</h2>
                 <?php
                 $comments = $commentController->getCommnentsByImageId($imageId);
-                if (!empty($comments)) {
-                    foreach ($comments as $comment) {
-                        echo "<div class='comment'>";
-                        echo "<p>{$comment['comment']}</p>";
-                        echo "<p>By: {$comment['first_name']} {$comment['last_name']} ({$comment['username']})</p>";
-                        echo "<p>Date: {$comment['created_at']}</p>";
-                        echo "</div>";
-                    }
-                } else {
-                    echo "<p>No comments yet.</p>";
-                }
-                ?>
+
+                if (!empty($comments)): ?>
+                    <?php foreach ($comments as $comment): ?>
+                        <div class='comment'>
+                            <p><?php echo $comment['comment']; ?></p>
+                            <p>By:
+                                <?php echo $comment['first_name'] . ' ' . $comment['last_name'] . ' (' . $comment['username'] . ')'; ?>
+                            </p>
+                            <p>Date: <?php echo $comment['created_at']; ?></p>
+
+                            <?php if ($currentUserId == $comment['user_id'] || $_SESSION['username'] == $imagesUserName): ?>
+                                <form action='' method='post'>
+                                    <input type='hidden' name='comment_id' value='<?php echo $comment['comment_id']; ?>'>
+                                    <input class="submit" type='submit' value='Delete' name='delete_comment'>
+                                </form>
+                            <?php endif; ?>
+
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No comments yet.</p>
+                <?php endif; ?>
 
             </div>
         </div>
+
     </div>
 </body>
 
