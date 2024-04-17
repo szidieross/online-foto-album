@@ -3,6 +3,8 @@
     --primary-text-color: white;
     --secondary-text-color: rgb(69, 71, 44);
     --background-color: rgb(255, 255, 247);
+    --other-background-color: rgb(204, 204, 173);
+    --secondary-background-color: rgb(250, 250, 227);
 }
 
 body {
@@ -23,6 +25,7 @@ body {
 
 a {
     text-decoration: none;
+    color: var(--secondary-text-color) !important;
 }
 
 /* HEADER */
@@ -148,6 +151,10 @@ footer {
     object-fit: contain;
 }
 
+.link{
+color: var(--primary-text-color);
+}
+
 .comment-form {
     width: 100%;
     display: flex;
@@ -205,21 +212,38 @@ footer {
     justify-content: center;
 }
 
+.comment-user {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.comment-text {
+    font-size: 16px;
+}
+
+.comment-date {
+    font-size: 14px;
+}
+
 .comment {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid var(--primary-color);
-    border-radius: 4px;
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 10px;
     margin: 10px 0;
+    background-color: var(--secondary-background-color);
 }
 
 /* FORMS */
+
+form {
+    margin: 0;
+    padding: 0;
+}
 
 .form {
     display: flex;
     flex-direction: column;
     max-width: 400px;
-    margin: 30px 0;
 }
 
 .form-button {

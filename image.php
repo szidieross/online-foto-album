@@ -32,6 +32,19 @@ $imagesUser = $userController->getUserById($userId);
 $imageUserName = $imagesUser["username"];
 $imagesUserName = $imagesUser["first_name"] . " " . $imagesUser["last_name"];
 
+// $commentDate = strtotime($comment['created_at']);
+// $now = time();
+
+// // Check if the comment was made today
+// if (date('Y-m-d', $commentDate) === date('Y-m-d', $now)) {
+//     // If the comment was made today, include the time
+//     echo "<p class='comment-date'>Date: " . date('F j, Y H:i', $commentDate) . "</p>";
+// } else {
+//     // If the comment was not made today, only include the date
+//     echo "<p class='comment-date'>Date: " . date('F j, Y', $commentDate) . "</p>";
+// }
+
+
 if (isset($_SESSION["username"]) && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_comment"])) {
     if (!empty($_POST["comment"])) {
 
@@ -69,7 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
 
 <body>
     <div class="container">
-        <h1><?php echo $title . " by " . $imagesUserName ?></h1>
+        <!-- <h1><?php echo $title . " by " . $imagesUserName ?></h1> -->
+        <h1><?php echo $title . " by <a class='link' href='user.php?user_id=" . $userId . "'>" . $imagesUserName . "</a>"; ?>
+        </h1>
+
 
         <?php if (!empty($image)): ?>
             <div class="image-holder">
@@ -115,11 +131,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
                 if (!empty($comments)): ?>
                     <?php foreach ($comments as $comment): ?>
                         <div class='comment'>
-                            <p><?php echo $comment['comment']; ?></p>
-                            <p>By:
-                                <?php echo $comment['first_name'] . ' ' . $comment['last_name'] . ' (' . $comment['username'] . ')'; ?>
+                            <a class="comment-user" href="user.php?user_id=<?php echo $comment['user_id']; ?>">
+                                <?php echo $comment['first_name'] . ' ' . $comment['last_name']; ?>
+                            </a>
+                            <p class="comment-text"><?php echo $comment['comment']; ?></p>
+                            <p class="comment-date">
+                                <?php echo date('F d, Y H:i', strtotime($comment['created_at'])); ?>
                             </p>
-                            <p>Date: <?php echo $comment['created_at']; ?></p>
 
                             <?php if ($currentUserId == $comment['user_id'] || $_SESSION['username'] == $imageUserName): ?>
                                 <form action='' method='post'>
