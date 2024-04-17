@@ -142,8 +142,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_image"])) {
                             <?php if ($currentUserId == $comment['user_id'] || $_SESSION['username'] == $imageUserName): ?>
                                 <form action='' method='post'>
                                     <input type='hidden' name='comment_id' value='<?php echo $comment['comment_id']; ?>'>
-                                    <input class="submit" type='submit' value='Delete' name='delete_comment'>
+                                    <button type='submit' name='delete_comment' class='delete-button'>
+                                        <img src='./assets/images/delete.svg' alt='Delete'>
+                                    </button>
                                 </form>
+
                             <?php endif; ?>
 
                         </div>

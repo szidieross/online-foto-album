@@ -151,8 +151,8 @@ footer {
     object-fit: contain;
 }
 
-.link{
-color: var(--primary-text-color);
+.link {
+    color: var(--primary-text-color);
 }
 
 .comment-form {
@@ -186,6 +186,12 @@ color: var(--primary-text-color);
 
 .comment-textarea:focus {
     outline: none;
+}
+
+.delete-button {
+    background-color: unset;
+    border: none;
+    cursor: pointer;
 }
 
 .submit {

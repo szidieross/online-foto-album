@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $email = $_POST['email'];
 
     $userController->updateUser($firstName, $lastName, $username, $email, $user['user_id']);
+    header("Location: updateUser.php");
 }
 ?>
 
