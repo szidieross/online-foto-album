@@ -23,6 +23,7 @@ $image = $imageController->getImageById($imageId);
 $title = $image["title"];
 $userId = $image["user_id"];
 $imagesUser = $userController->getUserById($userId);
+$imageUserName = $imagesUser["username"];
 $imagesUserName = $imagesUser["first_name"] . " " . $imagesUser["last_name"];
 
 $username = $_SESSION["username"];
@@ -97,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_comment"])) {
                             </p>
                             <p>Date: <?php echo $comment['created_at']; ?></p>
 
-                            <?php if ($currentUserId == $comment['user_id'] || $_SESSION['username'] == $imagesUserName): ?>
+                            <?php if ($currentUserId == $comment['user_id'] || $_SESSION['username'] == $imageUserName): ?>
                                 <form action='' method='post'>
                                     <input type='hidden' name='comment_id' value='<?php echo $comment['comment_id']; ?>'>
                                     <input class="submit" type='submit' value='Delete' name='delete_comment'>
